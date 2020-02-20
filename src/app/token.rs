@@ -2,8 +2,6 @@ use crate::entity::User;
 use jsonwebtoken::{encode, decode, Header, Validation, EncodingKey, DecodingKey};
 use serde::{Serialize, Deserialize};
 
-pub const CODE_TOKEN: &str = "CODE_TOKEN_EXPIRE";
-
 #[derive(Serialize, Deserialize)]
 struct Claims {
     user: User,

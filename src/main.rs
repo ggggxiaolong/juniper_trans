@@ -5,18 +5,20 @@
 use std::io;
 use std::sync::Arc;
 
-use actix_web::{middleware, web, App, Error, HttpResponse, HttpRequest, HttpServer, get, post};
+use actix_web::{middleware, web, App, Error, HttpResponse, HttpServer, get, post};
 use juniper::http::graphiql::graphiql_source;
 use juniper::http::GraphQLRequest;
 
 mod graphql;
-mod server;
+mod app;
 
 use graphql::schema::{create_schema, Schema};
 #[macro_use]
 extern crate diesel;
 #[macro_use]
 extern crate failure;
+#[macro_use]
+extern crate juniper;
 extern crate dotenv;
 mod database;
 mod entity;
@@ -24,8 +26,7 @@ mod entity;
 use diesel::prelude::*;
 use diesel::r2d2::{self, ConnectionManager};
 use dotenv::dotenv;
-use std::env;
-use server::token::validate_token;
+use app::session::Session;
 
 type DbPool = r2d2::Pool<ConnectionManager<SqliteConnection>>;
 
@@ -41,13 +42,12 @@ async fn graphiql() -> HttpResponse {
 async fn api_graphql(
     state: web::Data<AppState>,
     data: web::Json<GraphQLRequest>,
+    session: Session,
 ) -> Result<HttpResponse, Error> {
-    // let token: Option<&str> = request.headers().get("token").map(|value| value.to_str().ok()).ok_or(None)?;
     let user = web::block(move || {
-        // let user = token.map(|value| validate_token(&value))?;
         let context = graphql::schema::Context{
             conn: state.pool.get().expect("couldn't get db connection from pool"),
-            user: None,
+            user: session.user,
         };
         let res = data.execute(&state.schema, &context);
         Ok::<_, serde_json::error::Error>(serde_json::to_string(&res)?)
@@ -58,14 +58,17 @@ async fn api_graphql(
         .body(user))
 }
 
-fn establish_connection() -> SqliteConnection {
+fn establish_connection() -> DbPool {
     dotenv().ok();
-
-    let database_url = env::var("DATABASE_URL").expect("DATABASE_URL must be set");
-    SqliteConnection::establish(&database_url)
-        .expect(&format!("Error connecting to {}", database_url))
+    // set up database connection pool
+    let connspec = std::env::var("DATABASE_URL").expect("DATABASE_URL");
+    let manager = ConnectionManager::<SqliteConnection>::new(connspec);
+    r2d2::Pool::builder()
+        .build(manager)
+        .expect("Failed to create pool.")
 }
 
+#[derive(Clone)]
 struct AppState{
     pool: DbPool,
     schema: Arc<Schema>,
@@ -78,11 +81,14 @@ async fn main() -> io::Result<()> {
 
     // Create Juniper schema
     let schema = std::sync::Arc::new(create_schema());
-
+    let app_state = AppState{
+        pool: establish_connection(),
+        schema: schema,
+    };
     // Start http server
     HttpServer::new(move || {
         App::new()
-            .data(schema.clone())
+            .data(app_state.clone())
             .wrap(middleware::Logger::default())
             .service(api_graphql)
             .service(graphiql)

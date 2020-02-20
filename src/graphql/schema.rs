@@ -1,36 +1,11 @@
-use juniper::FieldResult;
 use juniper::RootNode;
 use diesel::r2d2::{ConnectionManager, PooledConnection};
 use diesel::prelude::*;
-use crate::entity::User;
+use crate::entity::*;
+use super::exception::CustomError;
+use super::modes::*;
 
-#[derive(GraphQLEnum)]
-enum Episode {
-    NewHope,
-    Empire,
-    Jedi,
-}
-
-use juniper::{GraphQLEnum, GraphQLInputObject, GraphQLObject};
-
-#[derive(GraphQLObject)]
-#[graphql(description = "A humanoid creature in the Star Wars universe")]
-struct Human {
-    id: String,
-    name: String,
-    appears_in: Vec<Episode>,
-    home_planet: String,
-}
-
-#[derive(GraphQLInputObject)]
-#[graphql(description = "A humanoid creature in the Star Wars universe")]
-struct NewHuman {
-    name: String,
-    appears_in: Vec<Episode>,
-    home_planet: String,
-}
-
-pub struct Context{
+pub struct Context {
     pub conn: PooledConnection<ConnectionManager<SqliteConnection>>,
     pub user: Option<User>
 }
@@ -39,15 +14,57 @@ impl juniper::Context for Context{}
 
 pub struct QueryRoot;
 
+type CustomeResult<T> = Result<T, CustomError>;
+
 #[juniper::object(Context = Context,)]
 impl QueryRoot {
-    fn human(id: String) -> FieldResult<Human> {
-        Ok(Human {
-            id: "1234".to_owned(),
-            name: "Luke".to_owned(),
-            appears_in: vec![Episode::NewHope],
-            home_planet: "Mars".to_owned(),
-        })
+    #[graphql(
+        description="用户登录"
+    )]
+    fn login(mail: String, password: String) -> CustomeResult<Token> {
+        Err(CustomError::TokenError)
+        // Ok(Token::new("accessToken: String".to_owned(), "refreshToken: String".to_owned()))
+    }
+
+    #[graphql(
+        description="刷新token"
+    )]
+    fn refreshToken(token: String) -> CustomeResult<Token> {
+        Err(CustomError::TokenError)
+    }
+
+    #[graphql(
+        description="查询语言",
+        arguments(
+            page(
+                default = 0,
+                description = "default 0",
+            ),
+            pageSize(
+                default = 20,
+                description = "default 20",
+            ),
+            projectId(
+                default = 1,
+            )
+        )
+    )]
+    fn language(context: &Context, page: i32, pageSize: i32, search: Option<String>, projectId: i32, statusType: Option<String>) -> CustomeResult<Lang> {
+        Err(CustomError::TokenError)
+    }
+
+    #[graphql(
+        description="查询所有的项目信息"
+    )]
+    fn projects(context: &Context,) -> CustomeResult<Project>{
+        Err(CustomError::TokenError)
+    }
+
+    #[graphql(
+        description="将英语翻译成其他语言"
+    )]
+    fn trans(context: &Context, en: String) -> CustomeResult<Trans> {
+        Err(CustomError::TokenError)
     }
 }
 
@@ -55,13 +72,25 @@ pub struct MutationRoot;
 
 #[juniper::object(Context = Context,)]
 impl MutationRoot {
-    fn createHuman(context: &Context,new_human: NewHuman) -> FieldResult<Human> {
-        Ok(Human {
-            id: "1234".to_owned(),
-            name: new_human.name,
-            appears_in: new_human.appears_in,
-            home_planet: new_human.home_planet,
-        })
+    #[graphql(
+        description="添加语言"
+    )]
+    fn addLang(context: &Context, lang: AddLang) -> CustomeResult<Lang> {
+        Err(CustomError::TokenError)
+    }
+
+    #[graphql(
+        description="更新语言"
+    )]
+    fn updateLang(context: &Context, lang: UpdateLang) -> CustomeResult<Lang> {
+        Err(CustomError::TokenError)
+    }
+
+    #[graphql(
+        description="将新增和修改的数据合并到数据库"
+    )]
+    fn mergeUpdate(context: &Context, projectId: i32) -> CustomeResult<String> {
+        Err(CustomError::TokenError)
     }
 }
 

@@ -1,25 +1,9 @@
 extern crate chrono;
-use juniper::{GraphQLInputObject};
+use juniper::{GraphQLObject};
 use chrono::NaiveDateTime;
 use serde::{Serialize, Deserialize};
 
-#[derive(GraphQLInputObject)]
-#[graphql(description = "add lang")]
-pub struct AddLang {
-    en: String,
-    ja: Option<String>,
-    ko: Option<String>,
-    sk: Option<String>,
-    cs: Option<String>,
-    fr: Option<String>,
-    es: Option<String>,
-    not_trans: i32,
-    description: Option<String>,
-    label: Option<String>,
-    file_name: Option<String>,
-    project_id: i32,
-    mode_name: Option<String>,
-}
+
 
 #[derive(Queryable, Serialize, Deserialize)]
 pub struct User {
@@ -29,18 +13,7 @@ pub struct User {
     pub password: String,
 }
 
-impl User {
-    pub fn remove_password(&mut self) {
-        self.password = "".to_owned()
-    }
-}
-
-pub struct JWTData {
-    user: User,
-    is_refresh: bool,
-}
-
-#[derive(Queryable)]
+#[derive(Queryable, GraphQLObject)]
 pub struct Lang {
     id: i32,
     user_id: i32,
@@ -76,40 +49,8 @@ pub struct Lang {
     update_time: NaiveDateTime,
 }
 
-#[derive(Queryable)]
+#[derive(Queryable, GraphQLObject)]
 pub struct Project {
     id: i32,
     name: String,
-}
-
-pub struct Token {
-    accessToken: String,
-    refreshToken: String,
-}
-
-pub struct Trans {
-    en: String,
-    ja: String,
-    ko: String,
-    sk: String,
-    cs: String,
-    fr: String,
-    es: String,
-}
-
-pub struct UpdateLang {
-    id: i32,
-    en: Option<String>,
-    ja: Option<String>,
-    ko: Option<String>,
-    sk: Option<String>,
-    cs: Option<String>,
-    fr: Option<String>,
-    es: Option<String>,
-    not_trans: Option<i32>,
-    descripe: Option<String>,
-    label: Option<String>,
-    file_name: Option<String>,
-    project_id: Option<i32>,
-    mode_name: Option<String>,
 }
