@@ -1,4 +1,4 @@
 pub mod schema;
 mod exception;
-mod modes;
+pub mod modes;
 mod translate;

@@ -19,6 +19,7 @@ extern crate diesel;
 extern crate failure;
 extern crate juniper;
 extern crate dotenv;
+
 mod database;
 mod entity;
 
@@ -37,25 +38,39 @@ async fn graphiql() -> HttpResponse {
         .body(html)
 }
 
+#[get("/test")]
+async fn test() -> HttpResponse {
+    let req = reqwest::get("https://httpbin.org/ip").await;
+    let text = match req{
+        Ok(body) => {
+            if let Ok(text) = body.text().await {
+                text
+            } else { "error body".to_owned()}
+        },
+        Err(e) => { format!("{:?}", e) },
+    };
+    HttpResponse::Ok()
+        .content_type("text/html; charset=utf-8")
+        .body(&text)
+}
+
 #[post("/graphql")]
 async fn api_graphql(
     state: web::Data<AppState>,
     data: web::Json<GraphQLRequest>,
     session: Session,
 ) -> Result<HttpResponse, Error> {
-    let user = web::block(move || {
-        let context = graphql::schema::Context{
-            // conn: state.pool.get().expect("couldn't get db connection from pool"),
-            conn: state.pool.clone(),
-            user: session.user,
-        };
-        let res = data.execute(&state.schema, &context);
-        Ok::<_, serde_json::error::Error>(serde_json::to_string(&res)?)
-    })
-    .await?;
+    let context = graphql::schema::Context{
+        // conn: state.pool.get().expect("couldn't get db connection from pool"),
+        conn: state.pool.clone(),
+        user: session.user,
+    };
+    let res = data.execute_async(&state.schema, &context).await;
+    // Ok::<_, serde_json::error::Error>(?)
+    let body = serde_json::to_string(&res)?;
     Ok(HttpResponse::Ok()
         .content_type("application/json")
-        .body(user))
+        .body(body))
 }
 
 fn establish_connection() -> DbPool {
@@ -92,6 +107,7 @@ async fn main() -> io::Result<()> {
             .wrap(middleware::Logger::default())
             .service(api_graphql)
             .service(graphiql)
+            .service(test)
     })
     .bind("127.0.0.1:4000")?
     .run()

@@ -5,12 +5,18 @@ use serde::{Serialize, Deserialize};
 
 
 
-#[derive(Queryable, Serialize, Deserialize)]
+#[derive(Queryable, Serialize, Deserialize,Clone)]
 pub struct User {
     pub id: i32,
     pub username: String,
     pub mail: String,
     pub password: String,
+}
+
+impl User {
+    pub fn remove_password(&mut self){
+        self.password = "".to_owned();
+    }
 }
 
 #[derive(Queryable, GraphQLObject)]
