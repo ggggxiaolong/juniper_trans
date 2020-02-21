@@ -41,16 +41,8 @@ impl Token {
     }
 }
 
-
-#[derive(GraphQLObject)]
 pub struct Trans {
-    en: String,
-    ja: String,
-    ko: String,
-    sk: String,
-    cs: String,
-    fr: String,
-    es: String,
+    pub en: String,
 }
 
 #[derive(GraphQLInputObject)]
@@ -70,3 +62,5 @@ pub struct UpdateLang {
     project_id: Option<i32>,
     mode_name: Option<String>,
 }
+
+pub struct TestObject{}

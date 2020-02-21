@@ -1,12 +1,13 @@
 use juniper::RootNode;
-use diesel::r2d2::{ConnectionManager, PooledConnection};
+use diesel::r2d2::{ConnectionManager};
 use diesel::prelude::*;
 use crate::entity::*;
 use super::exception::CustomError;
 use super::modes::*;
+use super::translate::translate;
 
 pub struct Context {
-    pub conn: PooledConnection<ConnectionManager<SqliteConnection>>,
+    pub conn: r2d2::Pool<ConnectionManager<SqliteConnection>>,
     pub user: Option<User>
 }
 
@@ -16,7 +17,7 @@ pub struct QueryRoot;
 
 type CustomeResult<T> = Result<T, CustomError>;
 
-#[juniper::object(Context = Context,)]
+#[juniper::graphql_object(Context = Context,)]
 impl QueryRoot {
     #[graphql(
         description="用户登录"
@@ -70,7 +71,7 @@ impl QueryRoot {
 
 pub struct MutationRoot;
 
-#[juniper::object(Context = Context,)]
+#[juniper::graphql_object(Context = Context,)]
 impl MutationRoot {
     #[graphql(
         description="添加语言"
@@ -92,7 +93,22 @@ impl MutationRoot {
     fn mergeUpdate(context: &Context, projectId: i32) -> CustomeResult<String> {
         Err(CustomError::TokenError)
     }
+
 }
+
+/// ja: String,
+// ko: String,
+// sk: String,
+// cs: String,
+// fr: String,
+// es: String,
+#[juniper::graphql_object]
+impl Trans {
+    async fn ja(&self) -> String {
+        translate(&self.en, "en", "ja").await
+    }
+}
+
 
 pub type Schema = RootNode<'static, QueryRoot, MutationRoot>;
 

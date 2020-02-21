@@ -13,7 +13,7 @@ env_logger = "0.7.1"
 serde = "1.0.104"
 serde_json = "1.0.48"
 serde_derive = "1.0.104"
-juniper = "0.14.2"
+juniper = { git = "https://github.com/graphql-rust/juniper", rev = "eff086a", features = ["async"] }
 diesel = { version = "1.4.3", features = ["sqlite", "chrono", "r2d2"] }
 dotenv = "0.15.0"
 chrono = "0.4"
@@ -23,3 +23,4 @@ failure = "0.1.6"
 failure_derive = "0.1.6"
 futures = "0.3.4"
 reqwest = "0.10.1"
+async-trait = "0.1.24"

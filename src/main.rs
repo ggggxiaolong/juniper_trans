@@ -17,7 +17,6 @@ use graphql::schema::{create_schema, Schema};
 extern crate diesel;
 #[macro_use]
 extern crate failure;
-#[macro_use]
 extern crate juniper;
 extern crate dotenv;
 mod database;
@@ -46,7 +45,8 @@ async fn api_graphql(
 ) -> Result<HttpResponse, Error> {
     let user = web::block(move || {
         let context = graphql::schema::Context{
-            conn: state.pool.get().expect("couldn't get db connection from pool"),
+            // conn: state.pool.get().expect("couldn't get db connection from pool"),
+            conn: state.pool.clone(),
             user: session.user,
         };
         let res = data.execute(&state.schema, &context);
