@@ -14,7 +14,7 @@ fn gen_token(user: &User, is_refresh: bool)-> String {
     let claims = Claims {
         user: user.clone(),
         is_refresh: is_refresh,
-        exp: if is_refresh { 60 * 60 * 24 * 7 } else { 60 * 60 }
+        exp: if is_refresh { 1000 * 60 * 60 * 24 * 7 } else { 1000 * 60 * 60 }
     };
     encode(&Header::default(), &claims, &EncodingKey::from_secret("secret".as_ref())).unwrap()
 }
@@ -27,7 +27,7 @@ pub fn gen_user_token(user: User) -> Token{
 
 pub fn validate_token(token: &str) -> Option<User> {
     match decode::<Claims>(token, &DecodingKey::from_secret("secret".as_ref()), &Validation::default()) {
-        Ok(c) => Some(c.claims.user),
+        Ok(c) if !c.claims.is_refresh => Some(c.claims.user),
         _ => None,
     }
 }

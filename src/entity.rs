@@ -1,8 +1,8 @@
 extern crate chrono;
-use juniper::{GraphQLObject};
+use juniper::{GraphQLObject, GraphQLInputObject};
 use chrono::NaiveDateTime;
 use serde::{Serialize, Deserialize};
-
+use diesel::Insertable;
 
 
 #[derive(Queryable, Serialize, Deserialize,Clone)]
@@ -53,6 +53,27 @@ pub struct Lang {
     status: i32,//0 为最新， 1为更新， 2为新增
     create_time: NaiveDateTime,
     update_time: NaiveDateTime,
+}
+
+use crate::database::schema::lang;
+
+#[derive(GraphQLInputObject, Insertable)]
+#[graphql(description = "add lang")]
+#[table_name="lang"]
+pub struct AddLang {
+    en: String,
+    ja: Option<String>,
+    ko: Option<String>,
+    sk: Option<String>,
+    cs: Option<String>,
+    fr: Option<String>,
+    es: Option<String>,
+    not_trans: i32,
+    descripe: Option<String>,
+    label: Option<String>,
+    file_name: Option<String>,
+    project_id: i32,
+    mode_name: Option<String>,
 }
 
 #[derive(Queryable, GraphQLObject)]
