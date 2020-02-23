@@ -21,6 +21,10 @@ impl Context {
             .get()
             .map_err(|e| CustomError::Internal(format!("{:?}", e)))
     }
+
+    fn user_id(&self) -> i32 {
+        self.user.clone().unwrap().id
+    }
 }
 
 pub struct QueryRoot;
@@ -32,24 +36,22 @@ impl QueryRoot {
     #[graphql(description = "用户登录")]
     fn login(context: &Context, mail: String, password: String) -> CustomeResult<Token> {
         use crate::database::schema::user;
-        match context.conn.get() {
-            Ok(conn) => match user::table.filter(user::mail.eq(mail)).load::<User>(&conn) {
-                Ok(mut users) => {
-                    if let Some(mut user) = users.pop() {
-                        match bcrypt::verify(&password, &user.password) {
-                            Ok(true) => {
-                                user.remove_password();
-                                Ok(crate::app::token::gen_user_token(user))
-                            }
-                            Ok(false) => Err(CustomError::MailOrPasswordFail),
-                            Err(e) => Err(CustomError::Internal(format!("{:?}", e))),
+        let conn = context.get_conn()?;
+        match user::table.filter(user::mail.eq(mail)).load::<User>(&conn) {
+            Ok(mut users) => {
+                if let Some(mut user) = users.pop() {
+                    match bcrypt::verify(&password, &user.password) {
+                        Ok(true) => {
+                            user.remove_password();
+                            Ok(crate::app::token::gen_user_token(user))
                         }
-                    } else {
-                        Err(CustomError::MailOrPasswordFail)
+                        Ok(false) => Err(CustomError::MailOrPasswordFail),
+                        Err(e) => Err(CustomError::Internal(format!("{:?}", e))),
                     }
+                } else {
+                    Err(CustomError::MailOrPasswordFail)
                 }
-                Err(e) => Err(CustomError::Internal(format!("{:?}", e))),
-            },
+            }
             Err(e) => Err(CustomError::Internal(format!("{:?}", e))),
         }
     }
@@ -170,7 +172,12 @@ impl MutationRoot {
             use diesel::result::Error;
             let conn = context.get_conn()?;
             conn.transaction::<Lang, Error, _>(|| {
-                diesel::insert_into(lang).values(&add_lang).execute(&conn)?;
+                diesel::insert_into(lang)
+                    .values(&crate::database::entity::AddLang::from_add_lang(
+                        add_lang,
+                        context.user_id(),
+                    ))
+                    .execute(&conn)?;
                 lang.order(id.desc()).first(&conn)
             })
             .map_err(|e| CustomError::Internal(format!("{:?}", e)))
@@ -190,7 +197,10 @@ impl MutationRoot {
             conn.transaction::<Lang, Error, _>(|| {
                 diesel::update(lang)
                     .filter(id.eq(update_id))
-                    .set(crate::database::entity::UpdateLang::from_lang(update_lang))
+                    .set(crate::database::entity::UpdateLang::from_lang(
+                        update_lang,
+                        context.user_id(),
+                    ))
                     .execute(&conn)?;
                 lang.filter(id.eq(update_id)).first(&conn)
             })
@@ -202,7 +212,34 @@ impl MutationRoot {
 
     #[graphql(description = "将新增和修改的数据合并到数据库")]
     fn mergeUpdate(context: &Context, projectId: i32) -> CustomeResult<String> {
-        Err(CustomError::TokenError)
+        if context.user.is_some() {
+            let conn = context.get_conn()?;
+            use diesel::result::Error;
+            conn.transaction::<usize, Error, _>(|| {
+                diesel::dsl::sql::<()>("drop table IF EXISTS tem_lang;diesel::insert_into(target: T)
+                create table tem_lang as select id, new_en, new_ja, new_ko, new_sk, new_cs, new_fr, new_es, new_not_trans, new_descripe, new_label, new_file_name, new_mode_name, new_project_id from lang limit 0;
+                insert into tem_lang select id, new_en, new_ja, new_ko, new_sk, new_cs, new_fr, new_es, new_not_trans, new_descripe, new_label, new_file_name, new_mode_name, new_project_id from lang;
+                update lang set en = (select new_en from tem_lang where tem_lang.id = lang.id) where new_en is not null and status != 0;
+                update lang set ja = (select new_ja from tem_lang where tem_lang.id = lang.id) where new_ja is not null and status != 0;
+                update lang set ko = (select new_ko from tem_lang where tem_lang.id = lang.id) where new_ko is not null and status != 0;
+                update lang set sk = (select new_sk from tem_lang where tem_lang.id = lang.id) where new_sk is not null and status != 0;
+                update lang set cs = (select new_cs from tem_lang where tem_lang.id = lang.id) where new_cs is not null and status != 0;
+                update lang set fr = (select new_fr from tem_lang where tem_lang.id = lang.id) where new_fr is not null and status != 0;
+                update lang set es = (select new_es from tem_lang where tem_lang.id = lang.id) where new_es is not null and status != 0;
+                update lang set user_id = (select new_user_id from tem_lang where tem_lang.id = lang.id) where new_user_id is not null and status != 0;
+                update lang set not_trans = (select new_not_trans from tem_lang where tem_lang.id = lang.id) where new_not_trans is not null and status != 0;
+                update lang set descripe = (select new_descripe from tem_lang where tem_lang.id = lang.id) where new_descripe is not null and status != 0;
+                update lang set label = (select new_label from tem_lang where tem_lang.id = lang.id) where new_label is not null and status != 0;
+                update lang set file_name = (select new_file_name from tem_lang where tem_lang.id = lang.id) where new_file_name is not null and status != 0;
+                update lang set mode_name = (select new_mode_name from tem_lang where tem_lang.id = lang.id) where new_mode_name is not null and status != 0;
+                update lang set project_id = (select new_project_id from tem_lang where tem_lang.id = lang.id) where new_project_id is not null and status != 0;
+                update lang set new_user_id = null, new_en=null, new_ja=null, new_ko=null, new_sk=null, new_cs=null, new_fr=null, new_es=null, new_not_trans=null, new_descripe=null, new_label=null, new_file_name=null, new_mode_name=null, new_project_id=null, status = 0, update_time = CURRENT_TIMESTAMP where status != 0;
+                drop table IF EXISTS tem_lang;").execute(&conn)
+            })
+            .map(|_|"Ok".to_owned()).map_err(|e| CustomError::Internal(format!("{:?}", e)))
+        } else {
+            Err(CustomError::TokenError)
+        }
     }
 }
 
