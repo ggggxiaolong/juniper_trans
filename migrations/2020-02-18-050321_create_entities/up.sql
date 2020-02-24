@@ -43,3 +43,19 @@ CREATE TABLE user (
     "mail" varchar NOT NULL, 
     "password" varchar NOT NULL
 );
+CREATE TABLE tem_lang (
+    "id" integer,
+    "new_en" text, 
+    "new_ja" text, 
+    "new_ko" text, 
+    "new_sk" text, 
+    "new_cs" text, 
+    "new_fr" text, 
+    "new_es" text, 
+    "new_not_trans" integer, 
+    "new_descripe" text, 
+    "new_label" text,
+    "new_file_name" text, 
+    "new_mode_name" text, 
+    "new_project_id" integer
+);
