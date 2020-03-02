@@ -5,28 +5,31 @@
 use std::io;
 use std::sync::Arc;
 
-use actix_web::{middleware, web, App, Error, HttpResponse, HttpServer, get, post};
+use actix_cors::Cors;
+use actix_web::{
+    body, get, http, middleware, options, post, web, App, Error, HttpResponse, HttpServer,
+};
 use juniper::http::graphiql::graphiql_source;
 use juniper::http::GraphQLRequest;
 
-mod graphql;
 mod app;
+mod graphql;
 
 use graphql::schema::{create_schema, Schema};
 #[macro_use]
 extern crate diesel;
 #[macro_use]
 extern crate failure;
-extern crate juniper;
 extern crate dotenv;
+extern crate juniper;
 
 mod database;
 mod entity;
 
+use app::session::Session;
 use diesel::prelude::*;
 use diesel::r2d2::{self, ConnectionManager};
 use dotenv::dotenv;
-use app::session::Session;
 
 type DbPool = r2d2::Pool<ConnectionManager<SqliteConnection>>;
 
@@ -38,21 +41,16 @@ async fn graphiql() -> HttpResponse {
         .body(html)
 }
 
-#[get("/test")]
-async fn test() -> HttpResponse {
-    let req = reqwest::get("https://httpbin.org/ip").await;
-    let text = match req{
-        Ok(body) => {
-            if let Ok(text) = body.text().await {
-                text
-            } else { "error body".to_owned()}
-        },
-        Err(e) => { format!("{:?}", e) },
-    };
-    HttpResponse::Ok()
-        .content_type("text/html; charset=utf-8")
-        .body(&text)
-}
+// #[options("/graphql")]
+// async fn api_options() -> HttpResponse {
+//     HttpResponse::NoContent()
+//         .header("Allow", "POST")
+//         .header("Access-Control-Allow-Origin", "*")
+//         .header("Access-Control-Allow-Methods","GET,HEAD,PUT,PATCH,POST,DELETE")
+//         .header("Access-Control-Allow-Headers", "X-Requested-With")
+//         .header("Access-Control-Allow-Headers", "Content-Type")
+//         .body(body::Body::Empty)
+// }
 
 #[post("/graphql")]
 async fn api_graphql(
@@ -60,8 +58,8 @@ async fn api_graphql(
     data: web::Json<GraphQLRequest>,
     session: Session,
 ) -> Result<HttpResponse, Error> {
-    let context = graphql::schema::Context{
-        // conn: state.pool.get().expect("couldn't get db connection from pool"),
+    println!("{}", "api_graphql");
+    let context = graphql::schema::Context {
         conn: state.pool.clone(),
         user: session.user,
     };
@@ -69,6 +67,7 @@ async fn api_graphql(
     // Ok::<_, serde_json::error::Error>(?)
     let body = serde_json::to_string(&res)?;
     Ok(HttpResponse::Ok()
+        .header("Access-Control-Allow-Origin", "*")
         .content_type("application/json")
         .body(body))
 }
@@ -84,7 +83,7 @@ fn establish_connection() -> DbPool {
 }
 
 #[derive(Clone)]
-struct AppState{
+struct AppState {
     pool: DbPool,
     schema: Arc<Schema>,
 }
@@ -96,18 +95,25 @@ async fn main() -> io::Result<()> {
 
     // Create Juniper schema
     let schema = std::sync::Arc::new(create_schema());
-    let app_state = AppState{
+    let app_state = AppState {
         pool: establish_connection(),
         schema: schema,
     };
     // Start http server
     HttpServer::new(move || {
         App::new()
+            .wrap(
+                Cors::new()
+                    // .allowed_origin("*")
+                    .allowed_methods(vec!["OPTION", "POST", "GET"])
+                    .max_age(3600)
+                    .finish()
+            )
             .data(app_state.clone())
             .wrap(middleware::Logger::default())
             .service(api_graphql)
             .service(graphiql)
-            .service(test)
+        // .service(api_options)
     })
     .bind("127.0.0.1:4000")?
     .run()

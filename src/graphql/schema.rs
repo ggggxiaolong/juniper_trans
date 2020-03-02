@@ -67,60 +67,64 @@ impl QueryRoot {
         description = "查询语言",
         arguments(
             page(default = 0, description = "default 0",),
-            pageSize(default = 20, description = "default 20",),
-            projectId(default = 1,),
-            statusType(default= LanaguageSearchType::All)
+            page_size(default = 20, description = "default 20",),
+            project_id(default = 1,),
+            status_type(default= LanaguageSearchType::All)
         )
     )]
     fn language(
         context: &Context,
         page: i32,
-        pageSize: i32,
+        page_size: i32,
         search: Option<String>,
-        projectId: i32,
-        statusType: LanaguageSearchType,
+        project_id: i32,
+        status_type: LanaguageSearchType,
     ) -> CustomeResult<Vec<Lang>> {
         use crate::database::schema::lang as langs;
         if context.user.is_some() {
             match context.conn.get() {
                 Ok(conn) => {
-                    let pageSize: i64 = pageSize as i64;
-                    let offset = pageSize * (page as i64);
-                    let query = match statusType {
+                    let page_size: i64 = page_size as i64;
+                    let offset = page_size * (page as i64);
+                    let query = match status_type {
                         LanaguageSearchType::All => langs::table
-                            .filter(langs::project_id.eq(projectId))
+                            .filter(langs::project_id.eq(project_id))
                             .filter(
                                 langs::en.like(format!("%{}%", search.unwrap_or("".to_owned()))),
                             )
-                            .limit(pageSize)
+                            .limit(page_size)
                             .offset(offset)
+                            .order(langs::update_time.desc())
                             .load::<Lang>(&conn),
                         LanaguageSearchType::Change => langs::table
-                            .filter(langs::project_id.eq(projectId))
+                            .filter(langs::project_id.eq(project_id))
                             .filter(
                                 langs::en.like(format!("%{}%", search.unwrap_or("".to_owned()))),
                             )
                             .filter(langs::status.eq(1))
-                            .limit(pageSize)
+                            .limit(page_size)
                             .offset(offset)
+                            .order(langs::update_time.desc())
                             .load::<Lang>(&conn),
                         LanaguageSearchType::New => langs::table
-                            .filter(langs::project_id.eq(projectId))
+                            .filter(langs::project_id.eq(project_id))
                             .filter(
                                 langs::en.like(format!("%{}%", search.unwrap_or("".to_owned()))),
                             )
                             .filter(langs::status.eq(2))
-                            .limit(pageSize)
+                            .limit(page_size)
                             .offset(offset)
+                            .order(langs::update_time.desc())
                             .load::<Lang>(&conn),
                         LanaguageSearchType::Update => langs::table
-                            .filter(langs::project_id.eq(projectId))
+                            .filter(langs::project_id.eq(project_id))
                             .filter(
                                 langs::en.like(format!("%{}%", search.unwrap_or("".to_owned()))),
                             )
                             .filter(langs::status.ne(0))
-                            .limit(pageSize)
+                            .limit(page_size)
                             .offset(offset)
+                            .order(langs::update_time.desc())
                             .load::<Lang>(&conn),
                     };
                     query.or_else(|e| Err(CustomError::Internal(format!("{:?}", e))))
@@ -211,28 +215,28 @@ impl MutationRoot {
     }
 
     #[graphql(description = "将新增和修改的数据合并到数据库")]
-    fn mergeUpdate(context: &Context, projectId: i32) -> CustomeResult<String> {
+    fn mergeUpdate(context: &Context, project_id: i32) -> CustomeResult<String> {
         if context.user.is_some() {
             let conn = context.get_conn()?;
             use diesel::result::Error;
             conn.transaction::<usize, Error, _>(|| {
                 diesel::dsl::sql::<()>("delete from tem_lang;").execute(&conn)?;
-                diesel::dsl::sql::<()>(&format!("insert into tem_lang select id, new_en, new_ja, new_ko, new_sk, new_cs, new_fr, new_es, new_not_trans, new_descripe, new_label, new_file_name, new_mode_name, new_project_id from lang and project_id = {};", projectId)).execute(&conn)?;
-                diesel::dsl::sql::<()>(&format!("update lang set en = (select new_en from tem_lang where tem_lang.id = lang.id) where new_en is not null and status != 0 and project_id = {};", projectId)).execute(&conn)?;
-                diesel::dsl::sql::<()>(&format!("update lang set ja = (select new_ja from tem_lang where tem_lang.id = lang.id) where new_ja is not null and status != 0 and project_id = {};", projectId)).execute(&conn)?;
-                diesel::dsl::sql::<()>(&format!("update lang set ko = (select new_ko from tem_lang where tem_lang.id = lang.id) where new_ko is not null and status != 0 and project_id = {};", projectId)).execute(&conn)?;
-                diesel::dsl::sql::<()>(&format!("update lang set sk = (select new_sk from tem_lang where tem_lang.id = lang.id) where new_sk is not null and status != 0 and project_id = {};", projectId)).execute(&conn)?;
-                diesel::dsl::sql::<()>(&format!("update lang set cs = (select new_cs from tem_lang where tem_lang.id = lang.id) where new_cs is not null and status != 0 and project_id = {};", projectId)).execute(&conn)?;
-                diesel::dsl::sql::<()>(&format!("update lang set fr = (select new_fr from tem_lang where tem_lang.id = lang.id) where new_fr is not null and status != 0 and project_id = {};", projectId)).execute(&conn)?;
-                diesel::dsl::sql::<()>(&format!("update lang set es = (select new_es from tem_lang where tem_lang.id = lang.id) where new_es is not null and status != 0 and project_id = {};", projectId)).execute(&conn)?;
-                diesel::dsl::sql::<()>(&format!("update lang set user_id = {} where status != 0 and project_id = {};", context.user_id(), projectId)).execute(&conn)?;
-                diesel::dsl::sql::<()>(&format!("update lang set not_trans = (select new_not_trans from tem_lang where tem_lang.id = lang.id) where new_not_trans is not null and status != 0 and project_id = {};", projectId)).execute(&conn)?;
-                diesel::dsl::sql::<()>(&format!("update lang set descripe = (select new_descripe from tem_lang where tem_lang.id = lang.id) where new_descripe is not null and status != 0 and project_id = {};", projectId)).execute(&conn)?;
-                diesel::dsl::sql::<()>(&format!("update lang set label = (select new_label from tem_lang where tem_lang.id = lang.id) where new_label is not null and status != 0 and project_id = {};", projectId)).execute(&conn)?;
-                diesel::dsl::sql::<()>(&format!("update lang set file_name = (select new_file_name from tem_lang where tem_lang.id = lang.id) where new_file_name is not null and status != 0 and project_id = {};", projectId)).execute(&conn)?;
-                diesel::dsl::sql::<()>(&format!("update lang set mode_name = (select new_mode_name from tem_lang where tem_lang.id = lang.id) where new_mode_name is not null and status != 0 and project_id = {};", projectId)).execute(&conn)?;
-                diesel::dsl::sql::<()>(&format!("update lang set project_id = (select new_project_id from tem_lang where tem_lang.id = lang.id) where new_project_id is not null and status != 0 and project_id = {};", projectId)).execute(&conn)?;
-                diesel::dsl::sql::<()>(&format!("update lang set new_user_id = null, new_en=null, new_ja=null, new_ko=null, new_sk=null, new_cs=null, new_fr=null, new_es=null, new_not_trans=null, new_descripe=null, new_label=null, new_file_name=null, new_mode_name=null, new_project_id=null, status = 0, update_time = CURRENT_TIMESTAMP where status != 0 and project_id = {};", projectId)).execute(&conn)
+                diesel::dsl::sql::<()>(&format!("insert into tem_lang select id, new_en, new_ja, new_ko, new_sk, new_cs, new_fr, new_es, new_not_trans, new_descripe, new_label, new_file_name, new_mode_name, new_project_id from lang where project_id = {};", project_id)).execute(&conn)?;
+                diesel::dsl::sql::<()>(&format!("update lang set en = (select new_en from tem_lang where tem_lang.id = lang.id) where new_en is not null and status != 0 and project_id = {};", project_id)).execute(&conn)?;
+                diesel::dsl::sql::<()>(&format!("update lang set ja = (select new_ja from tem_lang where tem_lang.id = lang.id) where new_ja is not null and status != 0 and project_id = {};", project_id)).execute(&conn)?;
+                diesel::dsl::sql::<()>(&format!("update lang set ko = (select new_ko from tem_lang where tem_lang.id = lang.id) where new_ko is not null and status != 0 and project_id = {};", project_id)).execute(&conn)?;
+                diesel::dsl::sql::<()>(&format!("update lang set sk = (select new_sk from tem_lang where tem_lang.id = lang.id) where new_sk is not null and status != 0 and project_id = {};", project_id)).execute(&conn)?;
+                diesel::dsl::sql::<()>(&format!("update lang set cs = (select new_cs from tem_lang where tem_lang.id = lang.id) where new_cs is not null and status != 0 and project_id = {};", project_id)).execute(&conn)?;
+                diesel::dsl::sql::<()>(&format!("update lang set fr = (select new_fr from tem_lang where tem_lang.id = lang.id) where new_fr is not null and status != 0 and project_id = {};", project_id)).execute(&conn)?;
+                diesel::dsl::sql::<()>(&format!("update lang set es = (select new_es from tem_lang where tem_lang.id = lang.id) where new_es is not null and status != 0 and project_id = {};", project_id)).execute(&conn)?;
+                diesel::dsl::sql::<()>(&format!("update lang set user_id = {} where status != 0 and project_id = {};", context.user_id(), project_id)).execute(&conn)?;
+                diesel::dsl::sql::<()>(&format!("update lang set not_trans = (select new_not_trans from tem_lang where tem_lang.id = lang.id) where new_not_trans is not null and status != 0 and project_id = {};", project_id)).execute(&conn)?;
+                diesel::dsl::sql::<()>(&format!("update lang set descripe = (select new_descripe from tem_lang where tem_lang.id = lang.id) where new_descripe is not null and status != 0 and project_id = {};", project_id)).execute(&conn)?;
+                diesel::dsl::sql::<()>(&format!("update lang set label = (select new_label from tem_lang where tem_lang.id = lang.id) where new_label is not null and status != 0 and project_id = {};", project_id)).execute(&conn)?;
+                diesel::dsl::sql::<()>(&format!("update lang set file_name = (select new_file_name from tem_lang where tem_lang.id = lang.id) where new_file_name is not null and status != 0 and project_id = {};", project_id)).execute(&conn)?;
+                diesel::dsl::sql::<()>(&format!("update lang set mode_name = (select new_mode_name from tem_lang where tem_lang.id = lang.id) where new_mode_name is not null and status != 0 and project_id = {};", project_id)).execute(&conn)?;
+                diesel::dsl::sql::<()>(&format!("update lang set project_id = (select new_project_id from tem_lang where tem_lang.id = lang.id) where new_project_id is not null and status != 0 and project_id = {};", project_id)).execute(&conn)?;
+                diesel::dsl::sql::<()>(&format!("update lang set new_user_id = null, new_en=null, new_ja=null, new_ko=null, new_sk=null, new_cs=null, new_fr=null, new_es=null, new_not_trans=null, new_descripe=null, new_label=null, new_file_name=null, new_mode_name=null, new_project_id=null, status = 0, update_time = CURRENT_TIMESTAMP where status != 0 and project_id = {};", project_id)).execute(&conn)
             })
             .map(|_|"Ok".to_owned()).map_err(|e| CustomError::Internal(format!("{:?}", e)))
         } else {

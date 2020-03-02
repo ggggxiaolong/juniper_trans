@@ -8,23 +8,17 @@ pub enum LanaguageSearchType {
     Change
 }
 
-// impl AddLang {
-//     pub fn to_lang(&self) -> Lang {
-
-//     }
-// }
-
 #[derive(GraphQLObject)]
 pub struct Token {
-    accessToken: String,
-    refreshToken: String,
+    access_token: String,
+    refresh_token: String,
 }
 
 impl Token {
-    pub fn new(accessToken: String, refreshToken: String) -> Token {
+    pub fn new(access_token: String, refresh_token: String) -> Token {
         Token {
-            accessToken: accessToken,
-            refreshToken: refreshToken,
+            access_token: access_token,
+            refresh_token: refresh_token,
         }
     }
 }
@@ -43,12 +37,14 @@ pub struct UpdateLang {
     pub cs: Option<String>,
     pub fr: Option<String>,
     pub es: Option<String>,
+    #[graphql(name="not_trans")]
     pub not_trans: Option<i32>,
     pub descripe: Option<String>,
     pub label: Option<String>,
+    #[graphql(name="file_name")]
     pub file_name: Option<String>,
+    #[graphql(name="project_id")]
     pub project_id: Option<i32>,
+    #[graphql(name="mode_name")]
     pub mode_name: Option<String>,
 }
-
-pub struct TestObject{}

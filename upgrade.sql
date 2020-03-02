@@ -1,12 +1,12 @@
---CREATE TABLE lang2 (
+-- CREATE TABLE lang2 (
 --    "id" integer, 
 --    "create_time" TIMESTAMP,
 --    "update_time" TIMESTAMP
---);
+-- );
 -- insert into lang2 (id, create_time, update_time) select id,datetime(create_time, 'unixepoch') as create_time,datetime(update_time, 'unixepoch') as update_time from lang
---update lang2 set create_time = (select datetime(create_time, 'unixepoch') as create_time from lang )where create_time is null
---update lang2 set update_time = (select datetime(update_time/1000, 'unixepoch') as update_time from lang )where update_time is null
---alter table lang add column create_time_t TIMESTAMP;
+-- update lang2 set create_time = (select datetime(create_time, 'unixepoch') as create_time from lang )where create_time is null
+-- update lang2 set update_time = (select datetime(update_time/1000, 'unixepoch') as update_time from lang )where update_time is null
+-- alter table lang add column create_time_t TIMESTAMP;
 -- alter table lang add column update_time_t TIMESTAMP;
 -- update lang set create_time_t = (select create_time from lang2 where lang2.id = lang.id);
 -- update lang set update_time_t = (select update_time from lang2 where lang2.id = lang.id);
