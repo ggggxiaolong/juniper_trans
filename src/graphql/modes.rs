@@ -27,7 +27,7 @@ pub struct Trans {
     pub en: String,
 }
 
-#[derive(GraphQLInputObject)]
+#[derive(GraphQLInputObject, Clone)]
 pub struct UpdateLang {
     pub id: i32,
     pub en: Option<String>,

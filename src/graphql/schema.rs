@@ -214,8 +214,32 @@ impl MutationRoot {
         }
     }
 
+    #[graphql(description = "批量更新语言")]
+    fn updateMultiLang(context: &Context, langs: Vec<UpdateLang>) -> CustomeResult<i32> {
+        if context.user.is_some() {
+            use crate::database::schema::lang::dsl::*;
+            use diesel::result::Error;
+            let conn = context.get_conn()?;
+            conn.transaction::<i32, Error, _>(|| {
+                for lan in langs.iter() {
+                    diesel::update(lang)
+                        .filter(id.eq(lan.id))
+                        .set(crate::database::entity::UpdateLang::from_lang(
+                            lan.clone(),
+                            context.user_id(),
+                        ))
+                        .execute(&conn)?;
+                }
+                Ok(langs.len() as i32)
+            })
+            .map_err(|e| CustomError::Internal(format!("{:?}", e)))
+        } else {
+            Err(CustomError::TokenError)
+        }
+    }
+
     #[graphql(description = "将新增和修改的数据合并到数据库")]
-    fn mergeUpdate(context: &Context, project_id: i32) -> CustomeResult<String> {
+    fn mergeUpdate(context: &Context, project_id: i32) -> CustomeResult<i32> {
         if context.user.is_some() {
             let conn = context.get_conn()?;
             use diesel::result::Error;
@@ -238,7 +262,7 @@ impl MutationRoot {
                 diesel::dsl::sql::<()>(&format!("update lang set project_id = (select new_project_id from tem_lang where tem_lang.id = lang.id) where new_project_id is not null and status != 0 and project_id = {};", project_id)).execute(&conn)?;
                 diesel::dsl::sql::<()>(&format!("update lang set new_user_id = null, new_en=null, new_ja=null, new_ko=null, new_sk=null, new_cs=null, new_fr=null, new_es=null, new_not_trans=null, new_descripe=null, new_label=null, new_file_name=null, new_mode_name=null, new_project_id=null, status = 0, update_time = CURRENT_TIMESTAMP where status != 0 and project_id = {};", project_id)).execute(&conn)
             })
-            .map(|_|"Ok".to_owned()).map_err(|e| CustomError::Internal(format!("{:?}", e)))
+            .map(|n|n as i32).map_err(|e| CustomError::Internal(format!("{:?}", e)))
         } else {
             Err(CustomError::TokenError)
         }

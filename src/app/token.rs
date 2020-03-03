@@ -3,6 +3,7 @@ use jsonwebtoken::{encode, decode, Header, Validation, EncodingKey, DecodingKey}
 use serde::{Serialize, Deserialize};
 use crate::graphql::modes::Token;
 use chrono::Utc;
+use dotenv::dotenv;
 
 #[derive(Serialize, Deserialize)]
 struct Claims {
@@ -18,7 +19,7 @@ fn gen_token(user: &User, is_refresh: bool)-> String {
         is_refresh: is_refresh,
         exp: if is_refresh { now + 60 * 60 * 24 * 7 } else { now + 60 * 60 }
     };
-    encode(&Header::default(), &claims, &EncodingKey::from_secret("secret".as_ref())).unwrap()
+    encode(&Header::default(), &claims, &EncodingKey::from_secret(&get_secret().as_ref())).unwrap()
 }
 
 pub fn gen_user_token(user: User) -> Token{
@@ -28,8 +29,12 @@ pub fn gen_user_token(user: User) -> Token{
 }
 
 pub fn validate_token(token: &str) -> Option<User> {
-    match decode::<Claims>(token, &DecodingKey::from_secret("secret".as_ref()), &Validation::default()) {
+    match decode::<Claims>(token, &DecodingKey::from_secret(&get_secret().as_ref()), &Validation::default()) {
         Ok(c) if !c.claims.is_refresh => Some(c.claims.user),
         _ => None,
     }
+}
+
+fn get_secret() -> String {
+    std::env::var("TOKEN_KEY").unwrap_or_else(|_| "secret".into())
 }

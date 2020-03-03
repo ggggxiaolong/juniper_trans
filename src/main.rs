@@ -6,10 +6,8 @@ use std::io;
 use std::sync::Arc;
 
 use actix_cors::Cors;
-use actix_web::{
-    body, get, http, middleware, options, post, web, App, Error, HttpResponse, HttpServer,
-};
-use juniper::http::graphiql::graphiql_source;
+use actix_web::{ middleware, post, web, App, Error, HttpResponse, HttpServer };
+// use juniper::http::graphiql::graphiql_source;
 use juniper::http::GraphQLRequest;
 
 mod app;
@@ -33,23 +31,12 @@ use dotenv::dotenv;
 
 type DbPool = r2d2::Pool<ConnectionManager<SqliteConnection>>;
 
-#[get("/graphiql")]
-async fn graphiql() -> HttpResponse {
-    let html = graphiql_source("http://127.0.0.1:4000/graphql");
-    HttpResponse::Ok()
-        .content_type("text/html; charset=utf-8")
-        .body(html)
-}
-
-// #[options("/graphql")]
-// async fn api_options() -> HttpResponse {
-//     HttpResponse::NoContent()
-//         .header("Allow", "POST")
-//         .header("Access-Control-Allow-Origin", "*")
-//         .header("Access-Control-Allow-Methods","GET,HEAD,PUT,PATCH,POST,DELETE")
-//         .header("Access-Control-Allow-Headers", "X-Requested-With")
-//         .header("Access-Control-Allow-Headers", "Content-Type")
-//         .body(body::Body::Empty)
+// #[get("/graphql")]
+// async fn graphiql() -> HttpResponse {
+//     let html = graphiql_source("http://localhost:4000/graphql");
+//     HttpResponse::Ok()
+//         .content_type("text/html; charset=utf-8")
+//         .body(html)
 // }
 
 #[post("/graphql")]
@@ -73,7 +60,6 @@ async fn api_graphql(
 }
 
 fn establish_connection() -> DbPool {
-    dotenv().ok();
     // set up database connection pool
     let connspec = std::env::var("DATABASE_URL").expect("DATABASE_URL");
     let manager = ConnectionManager::<SqliteConnection>::new(connspec);
@@ -90,8 +76,10 @@ struct AppState {
 
 #[actix_rt::main]
 async fn main() -> io::Result<()> {
+    dotenv().ok();
     std::env::set_var("RUST_LOG", "actix_web=info");
     env_logger::init();
+    let bind_address = std::env::var("BIND_ADDRESS").expect("BIND_ADDRESS is not set");
 
     // Create Juniper schema
     let schema = std::sync::Arc::new(create_schema());
@@ -104,7 +92,6 @@ async fn main() -> io::Result<()> {
         App::new()
             .wrap(
                 Cors::new()
-                    // .allowed_origin("*")
                     .allowed_methods(vec!["OPTION", "POST", "GET"])
                     .max_age(3600)
                     .finish()
@@ -112,10 +99,8 @@ async fn main() -> io::Result<()> {
             .data(app_state.clone())
             .wrap(middleware::Logger::default())
             .service(api_graphql)
-            .service(graphiql)
-        // .service(api_options)
     })
-    .bind("127.0.0.1:4000")?
+    .bind(bind_address)?
     .run()
     .await
 }
