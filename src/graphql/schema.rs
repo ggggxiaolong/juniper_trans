@@ -5,9 +5,10 @@ use crate::entity::*;
 use diesel::prelude::*;
 use diesel::r2d2::{ConnectionManager, PooledConnection};
 use juniper::RootNode;
+use std::sync::Arc;
 
 pub struct Context {
-    pub conn: r2d2::Pool<ConnectionManager<SqliteConnection>>,
+    pub conn: Arc<r2d2::Pool<ConnectionManager<SqliteConnection>>>,
     pub user: Option<User>,
 }
 

@@ -3,7 +3,6 @@ use jsonwebtoken::{encode, decode, Header, Validation, EncodingKey, DecodingKey}
 use serde::{Serialize, Deserialize};
 use crate::graphql::modes::Token;
 use chrono::Utc;
-use dotenv::dotenv;
 
 #[derive(Serialize, Deserialize)]
 struct Claims {

@@ -6,7 +6,9 @@ use std::io;
 use std::sync::Arc;
 
 use actix_cors::Cors;
-use actix_web::{ middleware, post, web, App, Error, HttpResponse, HttpServer };
+use actix_web::{
+    middleware, post, get, web, App, Error, HttpResponse, HttpServer,
+};
 // use juniper::http::graphiql::graphiql_source;
 use juniper::http::GraphQLRequest;
 
@@ -45,7 +47,6 @@ async fn api_graphql(
     data: web::Json<GraphQLRequest>,
     session: Session,
 ) -> Result<HttpResponse, Error> {
-    println!("{}", "api_graphql");
     let context = graphql::schema::Context {
         conn: state.pool.clone(),
         user: session.user,
@@ -54,9 +55,15 @@ async fn api_graphql(
     // Ok::<_, serde_json::error::Error>(?)
     let body = serde_json::to_string(&res)?;
     Ok(HttpResponse::Ok()
-        .header("Access-Control-Allow-Origin", "*")
         .content_type("application/json")
         .body(body))
+}
+
+#[get("/test")]
+async fn test_api() -> Result<HttpResponse, Error>{
+    Ok(HttpResponse::Ok()
+        .content_type("text/html; charset=utf-8")
+        .body("ok"))
 }
 
 fn establish_connection() -> DbPool {
@@ -70,7 +77,7 @@ fn establish_connection() -> DbPool {
 
 #[derive(Clone)]
 struct AppState {
-    pool: DbPool,
+    pool: Arc<DbPool>,
     schema: Arc<Schema>,
 }
 
@@ -82,9 +89,9 @@ async fn main() -> io::Result<()> {
     let bind_address = std::env::var("BIND_ADDRESS").expect("BIND_ADDRESS is not set");
 
     // Create Juniper schema
-    let schema = std::sync::Arc::new(create_schema());
+    let schema = Arc::new(create_schema());
     let app_state = AppState {
-        pool: establish_connection(),
+        pool: Arc::new(establish_connection()),
         schema: schema,
     };
     // Start http server
@@ -94,11 +101,12 @@ async fn main() -> io::Result<()> {
                 Cors::new()
                     .allowed_methods(vec!["OPTION", "POST", "GET"])
                     .max_age(3600)
-                    .finish()
+                    .finish(),
             )
             .data(app_state.clone())
             .wrap(middleware::Logger::default())
             .service(api_graphql)
+            .service(test_api)
     })
     .bind(bind_address)?
     .run()
