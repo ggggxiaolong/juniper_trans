@@ -59,7 +59,7 @@ impl QueryRoot {
 
     #[graphql(description = "刷新token")]
     fn refreshToken(token: String) -> CustomeResult<Token> {
-        crate::app::token::validate_token(&token)
+        crate::app::token::validate_refresh_token(&token)
             .map(|user| Ok(crate::app::token::gen_user_token(user)))
             .unwrap_or(Err(CustomError::TokenError))
     }

@@ -34,6 +34,13 @@ pub fn validate_token(token: &str) -> Option<User> {
     }
 }
 
+pub fn validate_refresh_token(token: &str) -> Option<User> {
+    match decode::<Claims>(token, &DecodingKey::from_secret(&get_secret().as_ref()), &Validation::default()) {
+        Ok(c) if c.claims.is_refresh => Some(c.claims.user),
+        _ => None,
+    }
+}
+
 fn get_secret() -> String {
     std::env::var("TOKEN_KEY").unwrap_or_else(|_| "secret".into())
 }
