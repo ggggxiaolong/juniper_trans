@@ -6,9 +6,7 @@ use std::io;
 use std::sync::Arc;
 
 use actix_cors::Cors;
-use actix_web::{
-    middleware, post, get, web, App, Error, HttpResponse, HttpServer,
-};
+use actix_web::{middleware, web, App, Error, HttpServer, HttpResponse};
 // use juniper::http::graphiql::graphiql_source;
 use juniper::http::GraphQLRequest;
 
@@ -41,7 +39,7 @@ type DbPool = r2d2::Pool<ConnectionManager<SqliteConnection>>;
 //         .body(html)
 // }
 
-#[post("/graphql")]
+// #[post("/graphql")]
 async fn api_graphql(
     state: web::Data<AppState>,
     data: web::Json<GraphQLRequest>,
@@ -51,6 +49,7 @@ async fn api_graphql(
         conn: state.pool.clone(),
         user: session.user,
     };
+    println!("/graphql");
     let res = data.execute_async(&state.schema, &context).await;
     // Ok::<_, serde_json::error::Error>(?)
     let body = serde_json::to_string(&res)?;
@@ -59,12 +58,19 @@ async fn api_graphql(
         .body(body))
 }
 
-#[get("/test")]
-async fn test_api() -> Result<HttpResponse, Error>{
-    Ok(HttpResponse::Ok()
-        .content_type("text/html; charset=utf-8")
-        .body("ok"))
-}
+// #[get("/test")]
+// async fn test_api() -> Result<HttpResponse, Error> {
+//     Ok(HttpResponse::Ok()
+//         .content_type("text/html; charset=utf-8")
+//         .body("ok"))
+// }
+
+// #[post("/test2")]
+// async fn test_api2(data: web::Json<GraphQLRequest>,) -> Result<HttpResponse, Error> {
+//     Ok(HttpResponse::Ok()
+//         .content_type("text/html; charset=utf-8")
+//         .body("ok"))
+// }
 
 fn establish_connection() -> DbPool {
     // set up database connection pool
@@ -97,16 +103,23 @@ async fn main() -> io::Result<()> {
     // Start http server
     HttpServer::new(move || {
         App::new()
+            .wrap(middleware::Logger::default())
             .wrap(
                 Cors::new()
                     .allowed_methods(vec!["OPTION", "POST", "GET"])
                     .max_age(3600)
                     .finish(),
             )
+            // .data(web::PayloadConfig::new(1024 * 1024 * 50))
+            .data(web::JsonConfig::default().limit(1024 * 1024 * 50))
             .data(app_state.clone())
-            .wrap(middleware::Logger::default())
-            .service(api_graphql)
-            .service(test_api)
+            .service(
+                web::resource("/graphql")
+                    .app_data(web::JsonConfig::default().limit(1024 * 1024 * 50))
+                    .route(web::post().to(api_graphql)),
+            )
+        // .service(test_api)
+        // .service(test_api2)
     })
     .bind(bind_address)?
     .run()
