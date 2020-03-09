@@ -1,1 +1,1 @@
-docker build -t test.tapplock.com:4000/transLang:test .
+docker build -t test.tapplock.com:4000/translang:test .

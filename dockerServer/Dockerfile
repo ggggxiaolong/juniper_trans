@@ -5,7 +5,7 @@ MAINTAINER TAN
 #在image中创建文件夹
 RUN mkdir -p /home/Service  && \
     apt-get update && \
-    apt-get install libsqlite3-0 libssl1.1
+    apt-get -y install libsqlite3-0 libssl1.1 libssl-dev ca-certificates
 #将该文件夹作为工作目录
 WORKDIR /home/Service
 

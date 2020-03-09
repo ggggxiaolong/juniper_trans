@@ -1,6 +1,6 @@
 [package]
 name = "juniper_hello"
-version = "0.1.0"
+version = "1.0.0"
 authors = ["MrTan <freemrtan@gmailcom>"]
 edition = "2018"
 
