@@ -1,4 +1,27 @@
 use serde_json::Value;
+use regex::Regex;
+
+lazy_static! {
+    static ref RE: Regex= Regex::new(r"(?P<i>\d)a{6}(?P<s>s|d)").unwrap();
+    static ref RE2: Regex= Regex::new(r"%(?P<i>\d)\$(?P<s>s|d)").unwrap();
+    static ref RE3: Regex= Regex::new(r"&#096;").unwrap();
+    static ref RE4: Regex= Regex::new("\n").unwrap();
+    static ref RE5: Regex= Regex::new("mm200gg").unwrap();
+}
+
+fn beforeTrans(source: &str) -> String {
+    let after = RE2.replace_all(source, "${i}aaaaaa${s}").into_owned();
+    let after = RE3.replace_all(&after, "'").into_owned();
+    let after = RE4.replace_all(&after, "mm200gg").into_owned();
+    return after
+}
+
+fn afterTrans(source: &str) -> String {
+    let after = RE4.replace_all(source, "").into_owned();
+    let after = RE.replace_all(&after, "%${i}$$${s}").into_owned();
+    let after = RE5.replace_all(&after, "\n ");
+    return after.into_owned()
+}
 
 fn compute_checksum(term: &str) -> (u32, u32) {
     let mut checksum: u32 = 429955;
@@ -50,7 +73,7 @@ async fn make_request(term: &str, from: &str, to: &str) -> Option<String> {
 
 
 pub async fn translate(text: &str, from: &str, to: &str) -> String {
-    let body = make_request(text, from, to).await;
+    let body = make_request(&beforeTrans(text), from, to).await;
     let mut text = String::new();
     if let Some(json) = body {
         if let Ok(v) = serde_json::from_str::<Value>(&json) {
@@ -74,5 +97,5 @@ pub async fn translate(text: &str, from: &str, to: &str) -> String {
             println!("error");
         }
     };
-    text
+    afterTrans(&text)
 }

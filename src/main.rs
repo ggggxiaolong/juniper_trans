@@ -20,6 +20,9 @@ extern crate diesel;
 extern crate failure;
 extern crate dotenv;
 extern crate juniper;
+extern crate regex;
+#[macro_use]
+extern crate lazy_static;
 
 mod database;
 mod entity;
