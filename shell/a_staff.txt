@@ -1,0 +1,11 @@
+{
+    "operationName": "language",
+    "variables": {
+        "projectId": 3,
+        "search": "",
+        "page": 0,
+        "pageSize": 1000,
+	"statusType": CHANGE,
+    },
+    "query": "query language($page: Int, $search: String, $projectId: Int, $pageSize: Int) {\n  language(page: $page, search: $search, projectId: $projectId, pageSize: $pageSize) {id en ko new_en new_ko new_project_id  }}"
+}

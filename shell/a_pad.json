@@ -1,0 +1,842 @@
+{
+    "data": {
+        "language": [{
+            "id": 1520,
+            "en": "Please try again, the offline mode status needs to sync with Tapplock&#096;s server with internet connection.",
+            "ko": "다시 시도하십시오. 오프라인 모드 상태는 인터넷에 연결된 Tapplock 서버와 동기화되어야합니다.",
+            "new_en": "You can't exit out of offline mode until the synchronization is complete.",
+            "new_ko": "동기화가 완료 될 때까지 오프라인 모드를 종료 할 수 없습니다.",
+            "new_project_id": null,
+            "label": "hint_offline_user_exit_no_lock_connect",
+            "update_time": 1584513657.0
+        }, {
+            "id": 312,
+            "en": "Add fingers",
+            "ko": "손가락 추가",
+            "new_en": "Add fingerprint",
+            "new_ko": null,
+            "new_project_id": null,
+            "label": "prompt_add_finger",
+            "update_time": 1576661754.0
+        }, {
+            "id": 335,
+            "en": "Lock name/Username",
+            "ko": "자물쇠 이름/사용자 이름",
+            "new_en": null,
+            "new_ko": null,
+            "new_project_id": null,
+            "label": "hint_lock_user_name",
+            "update_time": 1576661754.0
+        }, {
+            "id": 348,
+            "en": "New firmware version：%1$s | %2$s",
+            "ko": "새로운 펌웨어 버전: %s | %s",
+            "new_en": "New firmware version: %1$s | %2$s",
+            "new_ko": null,
+            "new_project_id": null,
+            "label": "format_new_firm_version",
+            "update_time": 1576661754.0
+        }, {
+            "id": 355,
+            "en": "Now set your morse code on your Tapplock with a length of 6-12 presses",
+            "ko": "이제 Tapplock에서 모스코드를 6-12자 길이로 설정하십시오.",
+            "new_en": "Now set your Morse code on your Tapplock with a length of 6-12 presses",
+            "new_ko": null,
+            "new_project_id": null,
+            "label": "prompt_morse_set_length",
+            "update_time": 1576661754.0
+        }, {
+            "id": 356,
+            "en": "Morse code can\\'t be all the same. Your password must contain long and short presses.",
+            "ko": "모스코드는 모두 같은 조합일 수 없습니다. 암호에는 길고 짧은 누름이 있어야 합니다.",
+            "new_en": "Morse code cannot be all the same. Your password must contain long and short presses.",
+            "new_ko": null,
+            "new_project_id": null,
+            "label": "hint_morse_all_same",
+            "update_time": 1576661754.0
+        }, {
+            "id": 381,
+            "en": "Please connect the Tapplock Box",
+            "ko": "Tapplock Box (지문등록기)를 연결하십시오.",
+            "new_en": "Please connect a Tapplock box",
+            "new_ko": "Tapplock box (지문등록기)를 연결하십시오.",
+            "new_project_id": null,
+            "label": "hint_insert_box",
+            "update_time": 1576661754.0
+        }, {
+            "id": 400,
+            "en": "Push power button twice, see blue LED blinking",
+            "ko": "전원버튼 두 번 (2) 누르면 파란색 LED가 깜빡입니다",
+            "new_en": "Push the power button twice, the LED will be blue and blinking",
+            "new_ko": null,
+            "new_project_id": null,
+            "label": "hint_add_lock_operation",
+            "update_time": 1576661754.0
+        }, {
+            "id": 409,
+            "en": "%s\\'s power is lower than 20%%, please charge your Tapplock",
+            "ko": "%s의 배터리잔량이 20 %%보다 낮으면 충전하십시오",
+            "new_en": null,
+            "new_ko": null,
+            "new_project_id": null,
+            "label": "format_low_power",
+            "update_time": 1576661754.0
+        }, {
+            "id": 410,
+            "en": "New upgrade package %s is ready to update. Please update your locks",
+            "ko": "새로운 업그레이드 패키지 %s을 (를) 업데이트 할 준비가 되었습니다. 자물쇠를 업데이트 하십시오",
+            "new_en": "Firmware upgrade %s is ready. Please update your Tapplocks.",
+            "new_ko": "새로운 업그레이드 패키지 %s을 (를) 업데이트 할 준비가 되었습니다. 자물쇠를 업데이트 하십시오.",
+            "new_project_id": null,
+            "label": "format_new_firm",
+            "update_time": 1576661754.0
+        }, {
+            "id": 411,
+            "en": "Has not been update for %s. Please update the firmware as soon as possible to ensure normal use",
+            "ko": "%s가 업데이트 되어있지 않습니다. 정상적인 사용을 위해 신속히 펌웨어 업데이트 하십시오",
+            "new_en": "Has not been update for %s. Please update the firmware as soon as possible.",
+            "new_ko": null,
+            "new_project_id": null,
+            "label": "format_firm_sync",
+            "update_time": 1576661754.0
+        }, {
+            "id": 414,
+            "en": "%1$s %2$s authorized %3$s %4$s permanent bluetooth access to %5$s",
+            "ko": "%1$s %2$s 님이 %3$s %4$s 에게 %5$s 자물쇠에 대한 영구적인 블루투스 권한을 승인하였습니다",
+            "new_en": "%1$s %2$s authorized %3$s %4$s permanent Bluetooth access to %5$s",
+            "new_ko": null,
+            "new_project_id": null,
+            "label": "format_his_auth_auth_ble",
+            "update_time": 1576661754.0
+        }, {
+            "id": 416,
+            "en": "%1$s %2$s revoked %3$s %4$s permanent bluetooth access to %5$s",
+            "ko": "%1$s %2$s 님이 %3$s %4$s 에게 %5$s 자물쇠에 대한 영구적인 블루투스 권한을 해지하였습니다",
+            "new_en": "%1$s %2$s revoked %3$s %4$s permanent Bluetooth access to %5$s",
+            "new_ko": null,
+            "new_project_id": null,
+            "label": "format_his_auth_cancel_ble",
+            "update_time": 1576661754.0
+        }, {
+            "id": 417,
+            "en": "%1$s %2$s authorized %3$s %4$s temporary bluetooth access (%5$s) to %6$s",
+            "ko": "%1$s %2$s 님이 %3$s %4$s 에게 %5$s 에서 %6$s 까지 일시적인 블루투스 액세스를 승인하였습니다",
+            "new_en": "%1$s %2$s authorized %3$s %4$s temporary Bluetooth access (%5$s) to %6$s",
+            "new_ko": null,
+            "new_project_id": null,
+            "label": "format_hit_auth_auth_temp",
+            "update_time": 1576661754.0
+        }, {
+            "id": 418,
+            "en": "%1$s %2$s revoked  %3$s %4$s temporary bluetooth access (%5$s) to %6$s",
+            "ko": "%1$s %2$s 님이 %3$s %4$s 에게 %5$s 에서 %6$s 까지 일시적인 블루투스 액세스를 해지하였습니다",
+            "new_en": "%1$s %2$s revoked %3$s %4$s temporary Bluetooth access (%5$s) to %6$s",
+            "new_ko": null,
+            "new_project_id": null,
+            "label": "format_hit_auth_revoke_temp",
+            "update_time": 1576661754.0
+        }, {
+            "id": 419,
+            "en": "%1$s %2$s revoked  %3$s %4$s all temporary bluetooth access to %5$s",
+            "ko": "%1$s %2$s 님이 %3$s %4$s 에게 %5$s 에 대한 모든 임시 블루투스 접속이 취소되었습니다",
+            "new_en": "%1$s %2$s revoked %3$s %4$s all temporary Bluetooth access to %5$s",
+            "new_ko": null,
+            "new_project_id": null,
+            "label": "format_hit_auth_revoke_all_temp",
+            "update_time": 1576661754.0
+        }, {
+            "id": 423,
+            "en": "%1$s deleted Morse-code to %2$s",
+            "ko": "%1$s 님이 Morse 코드를 %2$s (으)로 삭제했습니다.",
+            "new_en": "%1$s deleted Morse code to %2$s",
+            "new_ko": null,
+            "new_project_id": null,
+            "label": "format_his_set_morse",
+            "update_time": 1576661754.0
+        }, {
+            "id": 424,
+            "en": "%1$s created Morse-code to %2$s",
+            "ko": "%1$s 이 (가) %2$s 에 모스 부호를 작성했습니다",
+            "new_en": "%1$s created Morse code to %2$s",
+            "new_ko": null,
+            "new_project_id": null,
+            "label": "format_his_delete_morse",
+            "update_time": 1576661754.0
+        }, {
+            "id": 447,
+            "en": "Setup morse code",
+            "ko": "모스코드 설정",
+            "new_en": "Setup Morse code",
+            "new_ko": null,
+            "new_project_id": null,
+            "label": "prompt_setup_morse_code",
+            "update_time": 1576661754.0
+        }, {
+            "id": 472,
+            "en": "Data synchronizing, please do not turn off bluetooth.",
+            "ko": "데이터 동기화중, 블루투스를 끄지 마십시오.",
+            "new_en": "Data synchronizing, please do not turn off Bluetooth.",
+            "new_ko": null,
+            "new_project_id": null,
+            "label": "prompt_lock_sync_start",
+            "update_time": 1576661754.0
+        }, {
+            "id": 474,
+            "en": "The changes to fingerprint access will be live once synced by the staff app",
+            "ko": "지문액세스에 대한 변경사항은 스태프앱(staff app)에 의해 한 번 동기화 됩니다.",
+            "new_en": "The changes to fingerprint access will be live once the lock is synced",
+            "new_ko": "지문액세스에 대한 변경사항은 스태프앱(staff app)에 의해 한 번 동기화 됩니다",
+            "new_project_id": null,
+            "label": "prompt_success_auth_user",
+            "update_time": 1576661754.0
+        }, {
+            "id": 479,
+            "en": "Add Tapplock ...",
+            "ko": "Tapplock 추가…",
+            "new_en": "Add Tapplock...",
+            "new_ko": null,
+            "new_project_id": null,
+            "label": "prompt_add_lock",
+            "update_time": 1576661754.0
+        }, {
+            "id": 482,
+            "en": "Don\\'t show again",
+            "ko": "다시 표시하지 않음",
+            "new_en": "Do not show again",
+            "new_ko": null,
+            "new_project_id": null,
+            "label": "prompt_not_show_again",
+            "update_time": 1576661754.0
+        }, {
+            "id": 484,
+            "en": "Unauthorized bluetooth access",
+            "ko": "권한승인되지 않은 블루투스 액세스",
+            "new_en": "Unauthorized Bluetooth access",
+            "new_ko": null,
+            "new_project_id": null,
+            "label": "hint_lock_ble_unauth",
+            "update_time": 1576661754.0
+        }, {
+            "id": 485,
+            "en": "Authorized bluetooth access",
+            "ko": "권한승인된 블루투스 액세스",
+            "new_en": "Authorized Bluetooth access",
+            "new_ko": null,
+            "new_project_id": null,
+            "label": "hint_lock_ble_auth",
+            "update_time": 1576661754.0
+        }, {
+            "id": 560,
+            "en": "The change to Morse code will be live once synced by the staff app.",
+            "ko": "모스코드 변경은 스태프앱 (Staff app)에서 한번 데이터 동기화 되어야 사용 할 수 있습니다",
+            "new_en": "The changes to Morse code will be live once the lock is synced",
+            "new_ko": null,
+            "new_project_id": null,
+            "label": "prompt_delete_morse_success",
+            "update_time": 1576661754.0
+        }, {
+            "id": 561,
+            "en": "Fingerprint access will be live once the lock is synced",
+            "ko": "지문액세스는 스태프앱 (Staff app)에서 한번 데이터 동기화 되어야 사용 할 수 있습니다",
+            "new_en": "Fingerprint access will be live once the lock is synced",
+            "new_ko": null,
+            "new_project_id": null,
+            "label": "hint_lock_finger_wait_add",
+            "update_time": 1576661754.0
+        }, {
+            "id": 562,
+            "en": "The fingerprint access will be removed once synced by an staff app",
+            "ko": "지문액세스는 스태프앱 (Staff app)에서 한번 동기화 되어야 삭제 할 수 있습니다",
+            "new_en": "Fingerprint access will be removed once the lock is synced",
+            "new_ko": null,
+            "new_project_id": null,
+            "label": "hint_lock_finger_wait_delete",
+            "update_time": 1576661754.0
+        }, {
+            "id": 587,
+            "en": "Authorized bluetooth access",
+            "ko": "권한승인된 블루투스액세스",
+            "new_en": "Authorized Bluetooth access",
+            "new_ko": null,
+            "new_project_id": null,
+            "label": "prompt_report_auth_ble",
+            "update_time": 1576661754.0
+        }, {
+            "id": 589,
+            "en": "Revoked bluetooth access",
+            "ko": "해지된 블루투스액세스",
+            "new_en": "Revoked Bluetooth access",
+            "new_ko": null,
+            "new_project_id": null,
+            "label": "prompt_report_revoke_ble",
+            "update_time": 1576661754.0
+        }, {
+            "id": 590,
+            "en": "Created Morse-code",
+            "ko": "모스코드 생성",
+            "new_en": "Created Morse code",
+            "new_ko": null,
+            "new_project_id": null,
+            "label": "prompt_report_create_morse",
+            "update_time": 1576661754.0
+        }, {
+            "id": 591,
+            "en": "Delete Morse-code",
+            "ko": "모스 부호 삭제",
+            "new_en": "Delete Morse code",
+            "new_ko": null,
+            "new_project_id": null,
+            "label": "prompt_report_delete_morse",
+            "update_time": 1576661754.0
+        }, {
+            "id": 604,
+            "en": "Audit report：%1$d items",
+            "ko": "감사보고서: %1$d 개 항목",
+            "new_en": "Audit report: %1$d items",
+            "new_ko": null,
+            "new_project_id": null,
+            "label": "format_action_count",
+            "update_time": 1576661754.0
+        }, {
+            "id": 628,
+            "en": "Authorized temporary bluetooth access",
+            "ko": "권한승인된 일시적인 블루투스 액세스",
+            "new_en": "Authorized temporary Bluetooth access",
+            "new_ko": null,
+            "new_project_id": null,
+            "label": "hint_temp_access_auth",
+            "update_time": 1576661754.0
+        }, {
+            "id": 636,
+            "en": "Authorize temporary access add successfully",
+            "ko": "임시적인 액세스 권한추가 성공",
+            "new_en": "Temporary access authorized!",
+            "new_ko": "임시적인 액세스 권한추가 성공!",
+            "new_project_id": null,
+            "label": "hint_add_temporary_success",
+            "update_time": 1576661754.0
+        }, {
+            "id": 640,
+            "en": "Are you sure you want to remove all temporary access from `%1$s`?",
+            "ko": "`%1$s`에서 임시적인 액세스를 모두 제거 하시겠습니까?",
+            "new_en": "Are you sure you want to remove all temporary access from %1$s?",
+            "new_ko": "%1$s에서 임시적인 액세스를 모두 제거 하시겠습니까?",
+            "new_project_id": null,
+            "label": "hint_remove_lock_all_temp",
+            "update_time": 1576661754.0
+        }, {
+            "id": 641,
+            "en": "Are you sure you want to remove temporary access (%1$s) from `%2$s`?",
+            "ko": "`%1$s`에서 임시적인 액세스 (%2$s)을 제거 하시겠습니까?",
+            "new_en": "Are you sure you want to remove temporary access (%1$s) from %2$s?",
+            "new_ko": "%1$s에서 임시적인 액세스 (%2$s)을 제거 하시겠습니까?",
+            "new_project_id": null,
+            "label": "hint_remove_lock_one_temp",
+            "update_time": 1576661754.0
+        }, {
+            "id": 642,
+            "en": "Are you sure you want to remove `%1$s\\'s` all temporary access? ",
+            "ko": "`%1$s\\'s 의 모든 임시적인 액세스를 제거 하시겠습니까?",
+            "new_en": "Are you sure you want to remove all of %1$s\\'s temporary access?",
+            "new_ko": "%1$s 의 모든 임시적인 액세스를 제거 하시겠습니까?",
+            "new_project_id": null,
+            "label": "hint_remove_user_all_temp",
+            "update_time": 1576661754.0
+        }, {
+            "id": 643,
+            "en": "Are you sure you want to remove `%1$s\\'s` temporary access (%2$s)?",
+            "ko": "`%1$s\\'s 의 임시적인 액세스 (%2$s)을 제거 하시겠습니까?",
+            "new_en": "Are you sure you want to remove %1$s\\'s temporary access to (%2$s)?",
+            "new_ko": "%1$s 의 임시적인 액세스 (%2$s)을 제거 하시겠습니까?",
+            "new_project_id": null,
+            "label": "hint_remove_user_one_temp",
+            "update_time": 1576661754.0
+        }, {
+            "id": 652,
+            "en": "Tapplock\\'s License Agreement",
+            "ko": "Tapplock\\'s 라이센스 계약",
+            "new_en": null,
+            "new_ko": "Tapplock라이센스 계약",
+            "new_project_id": null,
+            "label": "title_license_agreement",
+            "update_time": 1576661754.0
+        }, {
+            "id": 660,
+            "en": "How to sync the changes to register fingerprint in order to open the lock？",
+            "ko": "자물쇠를 열려면 등록 지문 변경 사항을 동기화하는 방법?",
+            "new_en": "How to sync the changes to register fingerprint in order to open the lock?",
+            "new_ko": null,
+            "new_project_id": null,
+            "label": "prompt_tutorial_sync",
+            "update_time": 1576661754.0
+        }, {
+            "id": 665,
+            "en": "Downloading bluetooth install firmware, please don\\'t exit bluetooth wait a minute",
+            "ko": "블루투스 설치 펌웨어를 다운로드 중입니다. 잠시 기다리지 마십시오.",
+            "new_en": "Downloading and installing firmware, please do not exit Bluetooth mode.",
+            "new_ko": null,
+            "new_project_id": null,
+            "label": "prompt_firm_download",
+            "update_time": 1576661754.0
+        }, {
+            "id": 667,
+            "en": "Please don’t exit bluetooth wait a minute",
+            "ko": "잠시 기다리지 말고 Bluetooth를 종료하십시오",
+            "new_en": "Do not exit Bluetooth mode, please wait a moment.",
+            "new_ko": "잠시 기다리지 말고 Bluetooth를, 종료하십시오.",
+            "new_project_id": null,
+            "label": "prompt_dfu_lock_ble_hint",
+            "update_time": 1576661754.0
+        }, {
+            "id": 668,
+            "en": "Firmware update complete！",
+            "ko": "펌웨어 업데이트 완료!",
+            "new_en": "Firmware update complete!",
+            "new_ko": null,
+            "new_project_id": null,
+            "label": "prompt_dfu_success",
+            "update_time": 1576661754.0
+        }, {
+            "id": 669,
+            "en": "Firmware update failed！",
+            "ko": "펌웨어 업데이트 실패!",
+            "new_en": "Firmware update failed!",
+            "new_ko": null,
+            "new_project_id": null,
+            "label": "prompt_dfu_fail",
+            "update_time": 1576661754.0
+        }, {
+            "id": 671,
+            "en": "If the location permission is not on, you will not be able to connect the lock to our app via bluetooth.",
+            "ko": "위치 권한이 설정되어 있지 않으면 블루투스를 통해 잠금을 앱에 연결할 수 없습니다.",
+            "new_en": "If the location permission is not on, you will not be able to connect the lock to our app via Bluetooth.",
+            "new_ko": null,
+            "new_project_id": null,
+            "label": "prompt_location_permission_info_less",
+            "update_time": 1576661754.0
+        }, {
+            "id": 673,
+            "en": "Tapplock app needs internet and location permission available to grab the location from the device. For any functions related to bluetooth, the location permission have to be turned on, because Tapplock app needs internet and location permission available to grab the location from the phone. Otherwise, you cannot add a new lock, connect the lock to our app via bluetooth, open the lock via bluetooth, synchronize the lock, or delete the lock.",
+            "ko": "Tapplock 앱은 장치에서 위치를 가져 오려면 인터넷 및 위치 권한이 필요합니다. Tapplock 앱은 전화와 위치를 파악할 수있는 인터넷과 위치 권한이 필요하기 때문에 블루투스와 관련된 모든 기능의 경우 위치 권한이 켜져 있어야합니다. 그렇지 않으면 새 잠금을 추가하거나 블루투스를 통해 앱에 잠금을 연결하거나 블루투스를 통해 잠금을 열거 나 잠금을 동기화하거나 잠금을 삭제할 수 없습니다.",
+            "new_en": "Tapplock app needs internet and location permission available to grab the location from the device. For any functions related to Bluetooth, the location permission have to be turned on, because Tapplock app needs internet and location permission available to grab the location from the phone. Otherwise, you cannot add a new lock, connect the lock to our app via Bluetooth, open the lock via Bluetooth, synchronize the lock, or delete the lock.",
+            "new_ko": null,
+            "new_project_id": null,
+            "label": "prompt_location_permission_info_more",
+            "update_time": 1576661754.0
+        }, {
+            "id": 676,
+            "en": "%1$s created an account (email:%2$s  name: %3$s)",
+            "ko": "%1$s 에서 계정을 만들었습니다 (이메일:%2$s 이름: %3$s)",
+            "new_en": "%1$s created an account (email: %2$s name: %3$s)",
+            "new_ko": "%1$s 에서 계정을 만들었습니다 (이메일: %2$s 이름: %3$s)",
+            "new_project_id": null,
+            "label": "format_audit_create_user",
+            "update_time": 1576661754.0
+        }, {
+            "id": 677,
+            "en": "%1$s changed %2$s`s group from %3$s to %4$s",
+            "ko": "%1$s %2$s 그룹을 %3$s에서 %4$s로 변경했습니다",
+            "new_en": "%1$s changed %2$s\\'s group from %3$s to %4$s",
+            "new_ko": null,
+            "new_project_id": null,
+            "label": "format_audit_update_user_group",
+            "update_time": 1576661754.0
+        }, {
+            "id": 678,
+            "en": "%1$s changed %2$s`s permission from %3$s to %4$s",
+            "ko": "%1$s는 %2$s의 권한을 %3$s에서 %4$s로 변경했습니다",
+            "new_en": "%1$s changed %2$s\\'s permission from %3$s to %4$s",
+            "new_ko": null,
+            "new_project_id": null,
+            "label": "format_audit_update_user_permission",
+            "update_time": 1576661754.0
+        }, {
+            "id": 679,
+            "en": "%1$s changed %2$s`s name to %3$s",
+            "ko": "%1$s %2$s의 이름을 %3$s로 변경",
+            "new_en": "%1$s changed %2$s\\'s name to %3$s",
+            "new_ko": null,
+            "new_project_id": null,
+            "label": "format_audit_update_user_name",
+            "update_time": 1576661754.0
+        }, {
+            "id": 680,
+            "en": "%1$s deleted a user (email:%2$s  name: %3$s)",
+            "ko": "%1$s 사용자를 삭제했습니다 (이메일 : %2$s 이름 : %3$s)",
+            "new_en": "%1$s deleted a user (email: %2$s name: %3$s)",
+            "new_ko": "%1$s 사용자를 삭제했습니다 (이메일: %2$s 이름: %3$s)",
+            "new_project_id": null,
+            "label": "format_audit_delete_user",
+            "update_time": 1576661754.0
+        }, {
+            "id": 682,
+            "en": "%1$s Logged in",
+            "ko": "%1$s 로그인",
+            "new_en": "%1$s logged in",
+            "new_ko": null,
+            "new_project_id": null,
+            "label": "format_audit_staff_login",
+            "update_time": 1576661754.0
+        }, {
+            "id": 692,
+            "en": "%1$s authorized %2$s permanent bluetooth access to %3$s",
+            "ko": "%1$s 인증 %2$s  %3$s 에 대한 영구적 인 블루투스 액세스",
+            "new_en": "%1$s authorized %2$s permanent Bluetooth access to %3$s",
+            "new_ko": null,
+            "new_project_id": null,
+            "label": "format_audit_add_rel_bluetooth",
+            "update_time": 1576661754.0
+        }, {
+            "id": 694,
+            "en": "%1$s revoked %2$s permanent bluetooth access from %3$s",
+            "ko": "%1$s 님이 %3$s 에서 %2$s 영구적 인 블루투스 액세스를 취소했습니다",
+            "new_en": "%1$s revoked %2$s permanent Bluetooth access from %3$s",
+            "new_ko": null,
+            "new_project_id": null,
+            "label": "format_audit_delete_rel_bluetooth",
+            "update_time": 1576661754.0
+        }, {
+            "id": 697,
+            "en": "%1$s created Morse-code to %2$s",
+            "ko": "%1$s 이 (가) %2$s 에 모스 부호를 작성했습니다",
+            "new_en": "%1$s created Morse code to %2$s",
+            "new_ko": null,
+            "new_project_id": null,
+            "label": "format_audit_set_morse_code",
+            "update_time": 1576661754.0
+        }, {
+            "id": 702,
+            "en": "%1$s authorized %2$s temporary bluetooth access to %3$s",
+            "ko": "%3$s 에 %1$s 의 인증 된 %2$s 의 임시 블루투스 액세스",
+            "new_en": "%1$s authorized %2$s temporary Bluetooth access to %3$s",
+            "new_ko": null,
+            "new_project_id": null,
+            "label": "format_audit_add_rel_temp",
+            "update_time": 1576661754.0
+        }, {
+            "id": 703,
+            "en": "%1$s revoked %2$s temporary bluetooth access to %3$s",
+            "ko": "%1$s 이 (가) %3$s 에 대한 임시 블루투스 액세스를 %2$s 취소",
+            "new_en": "%1$s revoked %2$s temporary Bluetooth access to %3$s",
+            "new_ko": null,
+            "new_project_id": null,
+            "label": "format_audit_delete_rel_temp",
+            "update_time": 1576661754.0
+        }, {
+            "id": 704,
+            "en": "%1$s revoked %2$s all temporary bluetooth access to %3$s",
+            "ko": "%1$s 이 (가) %3$s 에 대한 모든 임시 블루투스 액세스를 %2$s 취소했습니다.",
+            "new_en": "%1$s revoked %2$s all temporary Bluetooth access to %3$s",
+            "new_ko": null,
+            "new_project_id": null,
+            "label": "format_audit_delete_all_rel_temp",
+            "update_time": 1576661754.0
+        }, {
+            "id": 705,
+            "en": "%1$s delete Morse-code to %2$s",
+            "ko": "%1$s 모스 부호를 %2$s (으)로 삭제",
+            "new_en": "%1$s delete Morse code to %2$s",
+            "new_ko": null,
+            "new_project_id": null,
+            "label": "format_audit_delete_morse",
+            "update_time": 1576661754.0
+        }, {
+            "id": 706,
+            "en": "staff Id",
+            "ko": "직원 ID",
+            "new_en": "Staff ID",
+            "new_ko": null,
+            "new_project_id": null,
+            "label": "hint_staff_id",
+            "update_time": 1576661754.0
+        }, {
+            "id": 713,
+            "en": "Staff ID: %1$s",
+            "ko": "직원 ID : %1$s ",
+            "new_en": null,
+            "new_ko": "직원 ID: %1$s",
+            "new_project_id": null,
+            "label": "format_staffId",
+            "update_time": 1576661754.0
+        }, {
+            "id": 717,
+            "en": "What do you want to do with **** **** **** %1$s",
+            "ko": "**** **** **** %1$s (으)로 무엇을 하시겠습니까?",
+            "new_en": "What do you want to do with **** **** **** %1$s?",
+            "new_ko": null,
+            "new_project_id": null,
+            "label": "format_edit_stripe_card",
+            "update_time": 1576661754.0
+        }, {
+            "id": 751,
+            "en": "You don\\'t have permission to log into the enterprise system",
+            "ko": "엔터프라이즈 시스템 (enterprise system)에 접근 권한이 없습니다",
+            "new_en": "You do not have the permission to log into the enterprise admin system",
+            "new_ko": "엔터프라이즈 시스템 (enterprise admin system)에 접근 권한이 없습니다",
+            "new_project_id": null,
+            "label": "net_code_400008",
+            "update_time": 1576661754.0
+        }, {
+            "id": 752,
+            "en": "You cannot delete until all users from the company are removed",
+            "ko": "회사의 모든 사용자가 제거 될 때까지 삭제할 수 없습니다.",
+            "new_en": "You cannot delete until all the users from the company are removed",
+            "new_ko": null,
+            "new_project_id": null,
+            "label": "net_code_400009",
+            "update_time": 1576661754.0
+        }, {
+            "id": 755,
+            "en": "You cannot delete the group until all users from the group are removed",
+            "ko": "그룹의 모든 사용자가 제거 될 때까지 그룹을 삭제할 수 없습니다.",
+            "new_en": "You cannot delete the group until all the users from the group are removed",
+            "new_ko": "그룹의 모든 사용자가 제거 될 때까지 그룹을 삭제할 수 없습니다",
+            "new_project_id": null,
+            "label": "net_code_400012",
+            "update_time": 1576661754.0
+        }, {
+            "id": 757,
+            "en": "The mac already exists",
+            "ko": "MAC가 이미 존재합니다.",
+            "new_en": "The MAC already exists",
+            "new_ko": null,
+            "new_project_id": null,
+            "label": "net_code_400014",
+            "update_time": 1576661754.0
+        }, {
+            "id": 758,
+            "en": "This Tapplock box is being used by the company, you cannot delete it",
+            "ko": "Tapplock Box (지문등록기)가 회사에서 사용중이므로 삭제할 수 없습니다",
+            "new_en": "This Tapplock box is currently in used by this company, you cannot delete it",
+            "new_ko": null,
+            "new_project_id": null,
+            "label": "net_code_400015",
+            "update_time": 1576661754.0
+        }, {
+            "id": 760,
+            "en": "You don\\'t have manage morse code permission",
+            "ko": "모스코드를 관리할 수 있는 권한이 없습니다",
+            "new_en": "You do not have the manage Morse code permission",
+            "new_ko": null,
+            "new_project_id": null,
+            "label": "net_code_400017",
+            "update_time": 1576661754.0
+        }, {
+            "id": 764,
+            "en": "The lock name already exists",
+            "ko": "자물쇠 이름이 이미 사용중입니다",
+            "new_en": "Lock name already exists",
+            "new_ko": null,
+            "new_project_id": null,
+            "label": "net_code_400021",
+            "update_time": 1576661754.0
+        }, {
+            "id": 765,
+            "en": "The authorization has been revoked",
+            "ko": "권한승인이 취소되었습니다.",
+            "new_en": "Authorization has been revoked",
+            "new_ko": null,
+            "new_project_id": null,
+            "label": "net_code_400022",
+            "update_time": 1576661754.0
+        }, {
+            "id": 766,
+            "en": "The invitation code has expired",
+            "ko": "초대코드가 만료되었습니다",
+            "new_en": "Invitation code has expired",
+            "new_ko": null,
+            "new_project_id": null,
+            "label": "net_code_400023",
+            "update_time": 1576661754.0
+        }, {
+            "id": 768,
+            "en": "The master account cannot be deleted.",
+            "ko": "마스터 계정은 삭제할 수 없습니다",
+            "new_en": "Master account cannot be deleted.",
+            "new_ko": null,
+            "new_project_id": null,
+            "label": "net_code_400026",
+            "update_time": 1576661754.0
+        }, {
+            "id": 770,
+            "en": "The user hasn\\'t authorized to the lock or the authorization has been revoked.",
+            "ko": "사용자는 자물쇠에 대한 권한이 승인되어 있지 않거나 승인취소 되었습니다",
+            "new_en": "The user is not authorized or the authorization has been revoked.",
+            "new_ko": null,
+            "new_project_id": null,
+            "label": "net_code_400028",
+            "update_time": 1576661754.0
+        }, {
+            "id": 773,
+            "en": "Your company has been frozen due to unpaid license fee, please pay through master account to continue to use.",
+            "ko": "라이센스비용을 지불하지 않아 회사계정이 정지되었습니다. 회사의 마스터등급 계정을 통해 지불 하십시오.",
+            "new_en": "Your company has been frozen due to unpaid license fee, please pay through the master account to continue to use or contact your account manager.",
+            "new_ko": null,
+            "new_project_id": null,
+            "label": "net_code_400031",
+            "update_time": 1576661754.0
+        }, {
+            "id": 777,
+            "en": "The total number of locks added has reached its limits. Please contact your account manager.",
+            "ko": "추가된 총 자물쇠 수는 허용치를 초과하였습니다. 계정관리자에게 문의하십시오",
+            "new_en": "The total number of locks added has reached this account\\'s limit. Please contact your account manager.",
+            "new_ko": "추가된 총 자물쇠 수는 허용치를 초과하였습니다. 계정관리자에게 문의하십시오.",
+            "new_project_id": null,
+            "label": "net_code_400035",
+            "update_time": 1576661754.0
+        }, {
+            "id": 783,
+            "en": "An error occurred while processing your card. Try again in a little bit",
+            "ko": "카드를 처리하는 중에 오류가 발생했습니다.",
+            "new_en": "An error occurred while processing your card. Please try again.",
+            "new_ko": null,
+            "new_project_id": null,
+            "label": "net_code_400046",
+            "update_time": 1576661754.0
+        }, {
+            "id": 788,
+            "en": "Time out",
+            "ko": "시간초과",
+            "new_en": "Timed out",
+            "new_ko": null,
+            "new_project_id": null,
+            "label": "hint_error_time_out",
+            "update_time": 1576661754.0
+        }, {
+            "id": 794,
+            "en": "View all groups info",
+            "ko": "모든 그룹정보 보기",
+            "new_en": "View all group info",
+            "new_ko": null,
+            "new_project_id": null,
+            "label": "prompt_admin_view",
+            "update_time": 1576661754.0
+        }, {
+            "id": 800,
+            "en": "Manage morse code",
+            "ko": "모스코드 관리",
+            "new_en": "Manage Morse code",
+            "new_ko": null,
+            "new_project_id": null,
+            "label": "prompt_manager_morse",
+            "update_time": 1576661754.0
+        }, {
+            "id": 806,
+            "en": "Receive bluetooth/connect notifications",
+            "ko": "블루투스/연결 알림 수신",
+            "new_en": "Receive Bluetooth/connection notifications",
+            "new_ko": null,
+            "new_project_id": null,
+            "label": "prompt_user_notification",
+            "update_time": 1576661754.0
+        }, {
+            "id": 1084,
+            "en": "This lock has been set Morse code, please press delete button to remove Morse code, and Morse code will be reset once connect the lock.",
+            "ko": "이 잠금은 모스 코드로 설정되어 있으며 삭제 버튼을 눌러 모스 코드를 제거하십시오. 모스 코드는 잠금 장치를 연결하면 재설정됩니다.",
+            "new_en": "This lock has been set with a Morse code, please press delete button to remove the Morse code, and the Morse code will be reset once the lock is synced.",
+            "new_ko": null,
+            "new_project_id": null,
+            "label": "hint_delete_morse",
+            "update_time": 1576661754.0
+        }, {
+            "id": 1095,
+            "en": "Do you want to delete the box &#096;%1$s&#096; ?",
+            "ko": "%1$s 상자를 삭제 하시겠습니까?",
+            "new_en": "Do you want to delete the box &#096;%1$s&#096;?",
+            "new_ko": null,
+            "new_project_id": null,
+            "label": "format_delete_box",
+            "update_time": 1576661754.0
+        }, {
+            "id": 1147,
+            "en": "%1$s added Tapplock Box %2$s",
+            "ko": "%1$s Tapplock Box %2$s 추가",
+            "new_en": "%1$s added Tapplock box %2$s",
+            "new_ko": "%1$s Tapplock box %2$s 추가",
+            "new_project_id": null,
+            "label": "format_audit_add_box",
+            "update_time": 1576661754.0
+        }, {
+            "id": 1148,
+            "en": "%1$s edited Tapplock Box %2$s name to %3$s",
+            "ko": "%1$s 가 Tapplock Box %2$s 이름을 %3$s (으)로 수정했습니다.",
+            "new_en": "%1$s edited Tapplock box %2$s name to %3$s",
+            "new_ko": "%1$s 가 Tapplock box %2$s 이름을 %3$s (으)로 수정했습니다.",
+            "new_project_id": null,
+            "label": "format_audit_update_box_name",
+            "update_time": 1576661754.0
+        }, {
+            "id": 1149,
+            "en": "%1$s deleted Tapplock Box %2$s",
+            "ko": "%1$s 삭제 된 Tapplock Box %2$s ",
+            "new_en": "%1$s deleted Tapplock box %2$s",
+            "new_ko": "%1$s 삭제 된 Tapplock box %2$s",
+            "new_project_id": null,
+            "label": "format_audit_delete_box",
+            "update_time": 1576661754.0
+        }, {
+            "id": 1151,
+            "en": "Please connect the Tapplock Box",
+            "ko": "Tapplock Box를 연결하십시오",
+            "new_en": "Please connect a Tapplock box",
+            "new_ko": "Tapplock box를 연결하십시오",
+            "new_project_id": null,
+            "label": "hint_connect_box",
+            "update_time": 1576661754.0
+        }, {
+            "id": 1153,
+            "en": "You don't have permission to see the fingerprint information.",
+            "ko": "지문 정보를 볼 권한이 없습니다.",
+            "new_en": "You do not have enough permission to see the fingerprint information.",
+            "new_ko": null,
+            "new_project_id": null,
+            "label": "hint_no_permission_to_edit_finger",
+            "update_time": 1576661754.0
+        }, {
+            "id": 1154,
+            "en": "You do not have enough permissions to modify the user‘s labels.",
+            "ko": "사용자 라벨을 수정할 수있는 권한이 없습니다.",
+            "new_en": "You do not have enough permissions to modify user labels.",
+            "new_ko": null,
+            "new_project_id": null,
+            "label": "hint_no_permission_to_edit_user_label",
+            "update_time": 1576661754.0
+        }, {
+            "id": 1156,
+            "en": "Tapplock Box connected successfully.",
+            "ko": "Tapplock Box가 성공적으로 연결되었습니다.",
+            "new_en": "Tapplock box connected successfully.",
+            "new_ko": "Tapplock box가 성공적으로 연결되었습니다.",
+            "new_project_id": null,
+            "label": "hint_box_connect_success",
+            "update_time": 1576661754.0
+        }, {
+            "id": 1160,
+            "en": "You do not have enough permissions to modify the user’s labels.",
+            "ko": "사용자 라벨을 수정할 수있는 권한이 없습니다.",
+            "new_en": "You do not have enough permissions to modify user labels.",
+            "new_ko": null,
+            "new_project_id": null,
+            "label": "hint_no_permission_to_edit_user_label",
+            "update_time": 1576661754.0
+        }, {
+            "id": 1162,
+            "en": "Tapplock Box connected successfully.",
+            "ko": "Tapplock Box가 성공적으로 연결되었습니다.",
+            "new_en": "Tapplock box connected successfully.",
+            "new_ko": "Tapplock box가 성공적으로 연결되었습니다.",
+            "new_project_id": null,
+            "label": "hint_box_connect_success",
+            "update_time": 1576661754.0
+        }, {
+            "id": 1174,
+            "en": "Unlock morse code",
+            "ko": "모스 코드 잠금 해제",
+            "new_en": "Unlock Morse code",
+            "new_ko": null,
+            "new_project_id": null,
+            "label": "prompt_report_send_action_unlock_morse_code",
+            "update_time": 1576661754.0
+        }]
+    }
+}
