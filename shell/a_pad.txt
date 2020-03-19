@@ -1,1 +1,1 @@
-{"query":"query langs {\n  language(statusType:CHANGE, projectId:2, pageSize: 1000){\n    id en ko new_en new_ko new_project_id label update_time\n  }\n}","variables":{},"operationName":"langs"}
+{"query":"query langs {\n  language( statusType:ALL, projectId:2, pageSize: 10000){\n    id en ko es new_en new_ko new_es label status update_time\n  }\n}","variables":{},"operationName":"langs"}

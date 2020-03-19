@@ -1,0 +1,257 @@
+{
+    "data": {
+        "language": [{
+            "id": 1222,
+            "en": "Buld edit",
+            "ko": "일괄 수정",
+            "label": "bulkEdit",
+            "mode_name": "btn",
+            "update_time": 1576661754.0
+        }, {
+            "id": 1225,
+            "en": "Personal Information",
+            "ko": "개인 정보",
+            "label": "personalInformation",
+            "mode_name": "title",
+            "update_time": 1576661754.0
+        }, {
+            "id": 1227,
+            "en": "Add lable",
+            "ko": "라벨 추가",
+            "label": "addLabel",
+            "mode_name": "title",
+            "update_time": 1576661754.0
+        }, {
+            "id": 1229,
+            "en": "Setup morse-code",
+            "ko": "모스 부호 설정",
+            "label": "morseSetup",
+            "mode_name": "title",
+            "update_time": 1576661754.0
+        }, {
+            "id": 1241,
+            "en": "User createion failed",
+            "ko": "사용자 생성 실패",
+            "label": "userCreateFail",
+            "mode_name": "title",
+            "update_time": 1576661754.0
+        }, {
+            "id": 1242,
+            "en": "Your login has expired, so you can cancel staying on the page or log in again",
+            "ko": "로그인이 만료되었으므로 페이지 유지를 취소하거나 다시 로그인 할 수 있습니다",
+            "label": "loginExpired",
+            "mode_name": "message",
+            "update_time": 1576661754.0
+        }, {
+            "id": 1269,
+            "en": "Last sync time",
+            "ko": "마지막 동기화 시간",
+            "label": "lastSyncTime",
+            "mode_name": "tableColumn",
+            "update_time": 1576661754.0
+        }, {
+            "id": 1271,
+            "en": "Last sync location",
+            "ko": "마지막 동기화 위치",
+            "label": "lastSyncLocation",
+            "mode_name": "label",
+            "update_time": 1576661754.0
+        }, {
+            "id": 1278,
+            "en": "Tax($)",
+            "ko": "세금 ($)",
+            "label": "tax",
+            "mode_name": "tableColumn",
+            "update_time": 1576661754.0
+        }, {
+            "id": 1284,
+            "en": "The lock name cannot be empty",
+            "ko": "잠금 이름은 비워 둘 수 없습니다",
+            "label": "lockNameNotEmpty",
+            "mode_name": "formValidate",
+            "update_time": 1576661754.0
+        }, {
+            "id": 1299,
+            "en": "input verification code",
+            "ko": "입력 인증 코드",
+            "label": "inputVerificationCode",
+            "mode_name": "placeholder",
+            "update_time": 1576661754.0
+        }, {
+            "id": 1321,
+            "en": "No.of locks",
+            "ko": "잠금 수",
+            "label": "lockCount",
+            "mode_name": "tableColumn",
+            "update_time": 1576661754.0
+        }, {
+            "id": 1322,
+            "en": "Total($)",
+            "ko": "합계 ($)",
+            "label": "totalMoney",
+            "mode_name": "tableColumn",
+            "update_time": 1576661754.0
+        }, {
+            "id": 1332,
+            "en": "Bluetooth",
+            "ko": "블루투스",
+            "label": "bluetooth",
+            "mode_name": "tableColumn",
+            "update_time": 1576661754.0
+        }, {
+            "id": 1349,
+            "en": "Manage morse code",
+            "ko": "모스 부호 관리",
+            "label": "mangeMorseCode",
+            "mode_name": "permission",
+            "update_time": 1576661754.0
+        }, {
+            "id": 1355,
+            "en": "Receive bluetooth/connection notification",
+            "ko": "블루투스 / 연결 알림 수신",
+            "label": "receiveBluetooth",
+            "mode_name": "permission",
+            "update_time": 1576661754.0
+        }, {
+            "id": 1358,
+            "en": "error",
+            "ko": "오류",
+            "label": "unkownError",
+            "mode_name": "message",
+            "update_time": 1576661754.0
+        }, {
+            "id": 1359,
+            "en": "Are you sure you want to delete this lock ?",
+            "ko": "이 잠금을 삭제 하시겠습니까?",
+            "label": "deleteLockConfirm",
+            "mode_name": "message",
+            "update_time": 1576661754.0
+        }, {
+            "id": 1360,
+            "en": "Are you sure you want to delete this user ?",
+            "ko": "이 사용자를 삭제 하시겠습니까?",
+            "label": "deleteUserConfirm",
+            "mode_name": "message",
+            "update_time": 1576661754.0
+        }, {
+            "id": 1361,
+            "en": "Are you sure you want to delete this fingerprint ?",
+            "ko": "이 지문을 삭제 하시겠습니까?",
+            "label": "deleteFingerprintConfirm",
+            "mode_name": "message",
+            "update_time": 1576661754.0
+        }, {
+            "id": 1372,
+            "en": "Are you sure you want to remove temporary access (${time}) from `${targetName}`",
+            "ko": "`$ {targetName}`에서 임시 액세스 ($ {time})를 제거 하시겠습니까?",
+            "label": "deleteTempAuthTime",
+            "mode_name": "message",
+            "update_time": 1576661754.0
+        }, {
+            "id": 1377,
+            "en": "Are you sure you want to delete this group ?",
+            "ko": "이 그룹을 삭제 하시겠습니까?",
+            "label": "deleteGroupConfirm",
+            "mode_name": "message",
+            "update_time": 1576661754.0
+        }, {
+            "id": 1379,
+            "en": "Are you sure you want to set this card as the default payment card ?",
+            "ko": "이 카드를 기본 결제 카드로 설정 하시겠습니까?",
+            "label": "setDefaultCardConfirm",
+            "mode_name": "message",
+            "update_time": 1576661754.0
+        }, {
+            "id": 1406,
+            "en": "This Tapplock Box is being used by the company, you cannot delete it",
+            "ko": "이 Tapplock Box는 회사에서 사용 중이므로 삭제할 수 없습니다",
+            "label": "code_400015",
+            "mode_name": "errorCodes",
+            "update_time": 1576661754.0
+        }, {
+            "id": 1434,
+            "en": "An error occurred while processing your card. Try again in a little bit.",
+            "ko": "카드를 처리하는 중에 오류가 발생했습니다.",
+            "label": "code_400046",
+            "mode_name": "errorCodes",
+            "update_time": 1576661754.0
+        }, {
+            "id": 1440,
+            "en": "#{operatorName} (#{operatorMail}) authorized #{userName} (#{mail}) permanent bluetooth access to #{lockName}",
+            "ko": "# {operatorName} (# {operatorMail}) 인증 # {userName} (# {mail}) # {lockName}에 대한 영구적 인 블루투스 액세스",
+            "label": "authBluetooth",
+            "mode_name": "auditReport",
+            "update_time": 1576661754.0
+        }, {
+            "id": 1442,
+            "en": "#{operatorName} (#{operatorMail}) revoked #{userName} (#{mail}) permanent bluetooth access to #{lockName}",
+            "ko": "# {operatorName} (# {operatorMail})이 # {userName} (# {mail})에서 # {lockName}에 대한 영구적 인 블루투스 액세스를 취소했습니다.",
+            "label": "cancelBluetooth",
+            "mode_name": "auditReport",
+            "update_time": 1576661754.0
+        }, {
+            "id": 1443,
+            "en": "#{operatorName} (#{operatorMail}) authorized #{userName} (#{mail}) temporary bluetooth access (#{times}) to #{lockName}",
+            "ko": "# {operatorName} (# {operatorMail}) 인증 된 # {userName} (# {mail}) 임시 블루투스 액세스 (# {times}) ~ # {lockName}",
+            "label": "authTemp",
+            "mode_name": "auditReport",
+            "update_time": 1576661754.0
+        }, {
+            "id": 1444,
+            "en": "#{operatorName} (#{operatorMail}) revoked  #{userName} (#{mail}) temporary bluetooth access (#{time}) to #{lockName}",
+            "ko": "# {operatorName} (# {operatorMail})이 (가) # {userName} (# {mail}) 임시 블루투스 액세스 (# {time})를 # {lockName} (으)로 취소했습니다.",
+            "label": "cancelTemp",
+            "mode_name": "auditReport",
+            "update_time": 1576661754.0
+        }, {
+            "id": 1445,
+            "en": "#{operatorName} (#{operatorMail}) revoked  #{userName} (#{mail}) all temporary bluetooth access to #{lockName}",
+            "ko": "# {operatorName} (# {operatorMail})이 # {lockName}에 대한 모든 임시 블루투스 액세스를 취소했습니다. # {userName} (# {mail})",
+            "label": "cancelAllTemp",
+            "mode_name": "auditReport",
+            "update_time": 1576661754.0
+        }, {
+            "id": 1466,
+            "en": "Authorized bluetooth access",
+            "ko": "승인 된 블루투스 액세스",
+            "label": "addAuthBluetooth",
+            "mode_name": "options",
+            "update_time": 1576661754.0
+        }, {
+            "id": 1468,
+            "en": "Revoked bluetooth access",
+            "ko": "블루투스 액세스 취소",
+            "label": "deleteAuthBluetooth",
+            "mode_name": "options",
+            "update_time": 1576661754.0
+        }, {
+            "id": 1471,
+            "en": "Created Morse-code",
+            "ko": "모스 부호 작성",
+            "label": "setMorseCode",
+            "mode_name": "options",
+            "update_time": 1576661754.0
+        }, {
+            "id": 1483,
+            "en": "Bluetooth",
+            "ko": "블루투스",
+            "label": "authNameBluetooth",
+            "mode_name": "advanceAuditReport",
+            "update_time": 1576661754.0
+        }, {
+            "id": 1485,
+            "en": "#{userName} (#{mail}) authorized #{targetUserName} (#{targetUserMail}) permanent bluetooth access to #{targetLockName} through bulk authorization",
+            "ko": "# {userName} (# {mail}) 인증 # {targetUserName} (# {targetUserMail}) 일괄 인증을 통해 # {targetLockName}에 대한 영구적 인 블루투스 액세스",
+            "label": "addAuthBluetoothBatch",
+            "mode_name": "advanceAuditReport",
+            "update_time": 1576661754.0
+        }, {
+            "id": 1513,
+            "en": "User activities",
+            "ko": "사용자 활동",
+            "label": "activities",
+            "mode_name": "options",
+            "update_time": 1576661754.0
+        }]
+    }
+}

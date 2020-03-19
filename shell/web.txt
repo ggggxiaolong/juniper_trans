@@ -1,0 +1,1 @@
+{"query":"query langs {\n  language(statusType:CHANGE, projectId:4, pageSize: 10000){\n    id en ko en  label mode_name update_time\n  }\n}","variables":{},"operationName":"langs"}

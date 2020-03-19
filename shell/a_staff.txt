@@ -1,11 +1,1 @@
-{
-    "operationName": "language",
-    "variables": {
-        "projectId": 3,
-        "search": "",
-        "page": 0,
-        "pageSize": 1000,
-	"statusType": CHANGE,
-    },
-    "query": "query language($page: Int, $search: String, $projectId: Int, $pageSize: Int) {\n  language(page: $page, search: $search, projectId: $projectId, pageSize: $pageSize) {id en ko new_en new_ko new_project_id  }}"
-}
+{"query":"query langs {\n  language(statusType:ALL, projectId:3, pageSize: 10000){\n    id en ja ko es new_en new_ja new_ko new_es status label update_time\n  }\n}","variables":{},"operationName":"langs"}
