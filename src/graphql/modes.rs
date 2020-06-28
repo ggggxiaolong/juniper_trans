@@ -37,6 +37,7 @@ pub struct UpdateLang {
     pub cs: Option<String>,
     pub fr: Option<String>,
     pub es: Option<String>,
+    pub pt: Option<String>,
     #[graphql(name="not_trans")]
     pub not_trans: Option<i32>,
     pub descripe: Option<String>,

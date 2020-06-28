@@ -28,6 +28,7 @@ pub struct Lang {
     cs: Option<String>,
     fr: Option<String>,
     es: Option<String>,
+    pt: Option<String>,
     #[graphql(name="not_trans")]
     not_trans: i32,
     descripe: Option<String>,
@@ -54,6 +55,8 @@ pub struct Lang {
     new_fr: Option<String>,
     #[graphql(name="new_es")]
     new_es: Option<String>,
+    #[graphql(name="new_pt")]
+    new_pt: Option<String>,
     #[graphql(name="new_not_trans")]
     new_not_trans: Option<i32>,
     #[graphql(name="new_descripe")]
@@ -83,6 +86,7 @@ pub struct AddLang {
     pub cs: Option<String>,
     pub fr: Option<String>,
     pub es: Option<String>,
+    pub pt: Option<String>,
     #[graphql(name="not_trans")]
     pub not_trans: i32,
     pub descripe: Option<String>,

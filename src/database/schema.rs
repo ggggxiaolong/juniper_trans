@@ -9,6 +9,7 @@ table! {
         cs -> Nullable<Text>,
         fr -> Nullable<Text>,
         es -> Nullable<Text>,
+        pt -> Nullable<Text>,
         not_trans -> Integer,
         descripe -> Nullable<Text>,
         label -> Nullable<Text>,
@@ -23,6 +24,7 @@ table! {
         new_cs -> Nullable<Text>,
         new_fr -> Nullable<Text>,
         new_es -> Nullable<Text>,
+        new_pt -> Nullable<Text>,
         new_not_trans -> Nullable<Integer>,
         new_descripe -> Nullable<Text>,
         new_label -> Nullable<Text>,
@@ -43,6 +45,26 @@ table! {
 }
 
 table! {
+    tem_lang (id) {
+        id -> Nullable<Integer>,
+        new_en -> Nullable<Text>,
+        new_ja -> Nullable<Text>,
+        new_ko -> Nullable<Text>,
+        new_sk -> Nullable<Text>,
+        new_cs -> Nullable<Text>,
+        new_fr -> Nullable<Text>,
+        new_es -> Nullable<Text>,
+        new_pt -> Nullable<Text>,
+        new_not_trans -> Nullable<Integer>,
+        new_descripe -> Nullable<Text>,
+        new_label -> Nullable<Text>,
+        new_file_name -> Nullable<Text>,
+        new_mode_name -> Nullable<Text>,
+        new_project_id -> Nullable<Integer>,
+    }
+}
+
+table! {
     user (id) {
         id -> Integer,
         username -> Text,
@@ -54,5 +76,6 @@ table! {
 allow_tables_to_appear_in_same_query!(
     lang,
     project,
+    tem_lang,
     user,
 );

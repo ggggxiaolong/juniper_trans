@@ -2,3 +2,4 @@
 DROP TABLE lang;
 DROP TABLE project;
 DROP TABLE user;
+DROP TABLE tem_lang;

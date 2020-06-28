@@ -8,7 +8,8 @@ CREATE TABLE lang (
     "sk" text, 
     "cs" text, 
     "fr" text, 
-    "es" text, 
+    "es" text,
+    "pt" text,
     "not_trans" integer NOT NULL DEFAULT (0), 
     "descripe" text, 
     "label" text, 
@@ -23,6 +24,7 @@ CREATE TABLE lang (
     "new_cs" text, 
     "new_fr" text, 
     "new_es" text, 
+    "new_pt" text, 
     "new_not_trans" integer, 
     "new_descripe" text, 
     "new_label" text, 
@@ -44,7 +46,7 @@ CREATE TABLE user (
     "password" varchar NOT NULL
 );
 CREATE TABLE tem_lang (
-    "id" integer,
+    "id" integer PRIMARY KEY,
     "new_en" text, 
     "new_ja" text, 
     "new_ko" text, 
@@ -52,6 +54,7 @@ CREATE TABLE tem_lang (
     "new_cs" text, 
     "new_fr" text, 
     "new_es" text, 
+    "new_pt" text, 
     "new_not_trans" integer, 
     "new_descripe" text, 
     "new_label" text,
